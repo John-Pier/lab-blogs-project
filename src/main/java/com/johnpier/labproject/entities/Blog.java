@@ -30,6 +30,9 @@ public class Blog {
     @Column(name = "created_at")
     private Date createdAt;
 
+    @OneToMany(mappedBy = "blog")
+    private List<Post> posts;
+
     @ManyToOne()
     @JoinColumn(name = "created_by", referencedColumnName = "UUID")
     private User createdBy;

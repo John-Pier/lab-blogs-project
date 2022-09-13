@@ -3,7 +3,7 @@ package com.johnpier.labproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "posts")
@@ -28,10 +28,17 @@ public class Post {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "created_at")
+    private Date createdAt;
+
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
     @ManyToOne()
     @JoinColumn(name = "owner_user_uuid")
     private User user;
+
+    @ManyToOne()
+    @JoinColumn(name = "blog_id")
+    private Blog blog;
 }
