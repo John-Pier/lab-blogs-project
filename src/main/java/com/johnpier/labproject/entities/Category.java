@@ -4,9 +4,10 @@ import com.johnpier.labproject.models.EntitiesStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "catogories")
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,4 +25,7 @@ public class Category {
 
     @Column(name = "status")
     private EntitiesStatus status = null;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Blog> blogs;
 }
