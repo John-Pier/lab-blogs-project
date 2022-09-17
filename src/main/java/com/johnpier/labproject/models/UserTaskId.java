@@ -1,4 +1,4 @@
-package com.johnpier.labproject.models.models;
+package com.johnpier.labproject.models;
 
 import lombok.*;
 
