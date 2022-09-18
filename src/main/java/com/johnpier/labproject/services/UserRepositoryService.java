@@ -34,8 +34,8 @@ public class UserRepositoryService {
         return repository.findAll();
     }
 
-    public User getUser(String login) {
-        return this.repository.findAllByEmail(login);
+    public User getUserByEmail(String email) {
+        return this.repository.findAllByEmail(email);
     }
 
     public boolean isUserExistsByLogin(String login) {
