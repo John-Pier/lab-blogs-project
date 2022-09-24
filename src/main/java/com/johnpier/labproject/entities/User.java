@@ -8,7 +8,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -45,7 +44,7 @@ public class User {
     @Column(name = "birthday")
     private Date birthday;
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_uuid", referencedColumnName = "UUID"),

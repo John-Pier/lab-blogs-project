@@ -7,7 +7,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "posts")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
@@ -34,11 +33,11 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "owner_user_uuid")
     private User user;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "blog_id")
     private Blog blog;
 }
