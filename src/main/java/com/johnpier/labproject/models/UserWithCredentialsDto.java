@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class UserRegisterDto extends UserProfileDto {
+public class UserWithCredentialsDto extends UserProfileDto {
     private String login;
     private String password;
 }

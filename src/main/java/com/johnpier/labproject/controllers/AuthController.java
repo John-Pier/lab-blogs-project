@@ -1,9 +1,8 @@
 package com.johnpier.labproject.controllers;
 
-import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
 import com.johnpier.labproject.models.*;
-import com.johnpier.labproject.services.*;
+import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @AllArgsConstructor
 @RequestMapping(Routes.AUTH)
-public class JwtAuthenticationController {
+public class AuthController {
     private AuthenticationManager authenticationManager;
-    private JwtTokenUtil jwtTokenUtil;
-    private DefaultUserDetailsService userDetailsService;
     private UserRepositoryService userRepositoryService;
 
     @PostMapping()
@@ -26,9 +23,6 @@ public class JwtAuthenticationController {
         authenticate(userAuthDto.getLogin(), userAuthDto.getPassword());
         log.info(userAuthDto.getLogin());
         log.info(userAuthDto.getPassword());
-//        final UserDetails userDetails = userDetailsService
-//                .loadUserByUsername(userAuthDto.getLogin());
-//        final String token = jwtTokenUtil.generateToken(userDetails);
 
         final UserProfileDto userProfileDto = userRepositoryService.getUserProfileByLogin(userAuthDto.getLogin());
         return ResponseEntity.ok(userProfileDto);

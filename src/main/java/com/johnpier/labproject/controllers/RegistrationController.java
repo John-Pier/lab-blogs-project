@@ -18,10 +18,10 @@ public class RegistrationController {
     private UserRepositoryService userService;
 
     @PostMapping()
-    public ResponseEntity<?> addPerson(@RequestBody UserRegisterDto userRegisterDto) {
+    public ResponseEntity<?> addPerson(@RequestBody UserWithCredentialsDto userWithCredentialsDto) {
         UserProfileDto userProfileDto = null;
         try {
-            userProfileDto = userService.saveUser(userRegisterDto);
+            userProfileDto = userService.createUser(userWithCredentialsDto);
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }

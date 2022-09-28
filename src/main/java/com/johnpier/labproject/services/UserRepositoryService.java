@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,7 +41,7 @@ public class UserRepositoryService {
         return repository.getUserByLogin(login) == null;
     }
 
-    public UserProfileDto saveUser(UserRegisterDto user) throws Exception {
+    public UserProfileDto saveUser(UserWithCredentialsDto user) throws Exception {
         User userFromDB = repository.getUserByLogin(user.getLogin());
         if (userFromDB == null) {
             throw new Exception("User Already Exist!");
@@ -51,16 +52,14 @@ public class UserRepositoryService {
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        //repository.save(user); // TODO: convert model
-
-        return null;
+        return mapUserToUserProfileDto(repository.save(mapFromUserWithCredentials(user)));
     }
 
-    public User createUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        log.info(user.getPassword());
+    public UserProfileDto createUser(UserWithCredentialsDto userWithCredentials) {
+        userWithCredentials.setPassword(bCryptPasswordEncoder.encode(userWithCredentials.getPassword()));
+        log.info("User created: " + userWithCredentials.getLogin());
 
-        return repository.save(user);
+        return mapUserToUserProfileDto(repository.save(mapFromUserWithCredentials(userWithCredentials)));
     }
 
     public String getFirstNameByLogin(String login) {
@@ -77,6 +76,40 @@ public class UserRepositoryService {
         userProfile.setCountry(user.getCountry());
         userProfile.setFirstName(user.getFirstName());
         userProfile.setSecondName(user.getSecondName());
+        userProfile.setGender(user.getGender());
+        userProfile.setBirthday(user.getBirthday());
         return userProfile;
+    }
+
+
+    private User mapFromUserWithCredentials(UserWithCredentialsDto userWithCredentials) {
+        final var user = new User();
+        user.setLogin(userWithCredentials.getLogin());
+        user.setPassword(userWithCredentials.getPassword());
+        user.setBirthday(userWithCredentials.getBirthday());
+        user.setGender(userWithCredentials.getGender());
+        user.setCity(userWithCredentials.getCity());
+        user.setCountry(userWithCredentials.getCountry());
+        user.setEmail(userWithCredentials.getEmail());
+        user.setFirstName(userWithCredentials.getFirstName());
+        user.setSecondName(userWithCredentials.getSecondName());
+        return user;
+    }
+
+    private UserProfileDto mapUserToUserProfileDto(User user) {
+        final var userProfileDto = new UserProfileDto();
+        userProfileDto.setEmail(user.getEmail());
+        userProfileDto.setBirthday(user.getBirthday());
+        userProfileDto.setCity(user.getCity());
+        userProfileDto.setCountry(user.getCountry());
+        userProfileDto.setFirstName(user.getFirstName());
+        userProfileDto.setSecondName(user.getSecondName());
+        userProfileDto.setGender(user.getGender());
+        if (user.getRoles() != null) {
+            var roles = user.getRoles().stream().map(UserRolePermissionsDto::from).collect(Collectors.toList());
+            userProfileDto.setRoles(roles);
+        }
+
+        return userProfileDto;
     }
 }

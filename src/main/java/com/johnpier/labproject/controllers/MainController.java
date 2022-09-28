@@ -4,7 +4,6 @@ import com.johnpier.labproject.configs.Constants;
 import com.johnpier.labproject.entities.User;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
@@ -35,18 +34,5 @@ public class MainController {
     @GetMapping("/test")
     public User findByLogin() throws Exception {
         return userService.getUserByLogin("test");
-    }
-
-    @PostMapping(path = "/registration")
-    public ResponseEntity<?> addPerson(@RequestBody User user) {
-        userService.createUser(user);
-//        final UserDetails userDetails = userDetailsService
-//                .loadUserByUsername(user.getLogin());
-//        log.info("Token returned");
-//
-//        userTaskRepositoryService.initUserTask(userService.getUserByLogin(user.getLogin()).getUuid());
-
-        log.info("Init actions succeeded");
-        return ResponseEntity.ok("ok");
     }
 }
