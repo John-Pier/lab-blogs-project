@@ -5,12 +5,9 @@ import com.johnpier.labproject.entities.User;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
-import java.io.*;
 import java.util.List;
 
 @RestController
@@ -48,8 +45,8 @@ public class MainController {
 //        log.info("Token returned");
 //
 //        userTaskRepositoryService.initUserTask(userService.getUserByLogin(user.getLogin()).getUuid());
-//
-//        log.info("Init actions succeeded");
+
+        log.info("Init actions succeeded");
         return ResponseEntity.ok("ok");
     }
 

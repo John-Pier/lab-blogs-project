@@ -36,6 +36,8 @@ public class User {
     @Column(name = "gender")
     private Byte gender;
 
+    // TODO: use @Embeddable
+
     @Column(name = "first_name")
     private String firstName;
 

@@ -1,17 +1,14 @@
 package com.johnpier.labproject.services;
 
+import com.johnpier.labproject.entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import com.johnpier.labproject.entities.User;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
 
 @Service
 @Slf4j
@@ -35,7 +32,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 //            log.info("1");
 //        }
 //        else {
-            roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
 //            log.info("2");
 //        }
 
@@ -44,4 +41,14 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 roles);
     }
 
+    public String getFirstNameByLogin(String login) {
+        User user = userRepositoryService.getUserByLogin(login);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User or password invalid");
+        }
+
+        // TODO: return all params
+        return user.getFirstName();
+    }
 }

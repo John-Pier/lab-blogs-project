@@ -42,15 +42,17 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(Constants.API_VERSION + "/auth",
-                        Constants.API_VERSION + "/registration",
-                        Constants.API_VERSION + "/test",
-                        Constants.API_VERSION + "/image/**").permitAll()
-                .antMatchers("/", "/**.**","/**.css","/auth", "/main/**","/main","/assets/themes/base/**").permitAll()
+                .antMatchers(
+                        Routes.AUTH,
+                        Routes.REGISTER,
+                        Routes.ROOT
+                )
+                .permitAll()
                 .anyRequest().authenticated()
+                // .antMatchers("/some").access("hasRole('ROLE_USER')")
                 .and()
                 .logout()
-                .logoutUrl(Constants.API_VERSION + "/logout")
+                .logoutUrl(Routes.LOGOUT)
                 .invalidateHttpSession(true)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -62,16 +64,25 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/js/**", "/images/**", "/index.html");
+        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Image, Paths.All);
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("*"); // TODO: fix
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Origin", "Cache-Control", "Content-Type", "Authorization"));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Access-Control-Allow-Headers",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
+                "Origin",
+                "Cache-Control",
+                "Content-Type",
+                "Authorization"
+        ));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

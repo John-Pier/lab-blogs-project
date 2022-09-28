@@ -2,6 +2,7 @@ package com.johnpier.labproject.auth;
 
 import com.johnpier.labproject.services.DefaultUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
     private final DefaultUserDetailsService jwtUserDetailsService;
@@ -28,21 +30,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        final String requestTokenHeader = request.getHeader("Authorization");
+        final String jwtToken = JwtTokenUtil.getTokenFromAuthHeader(request.getHeader("Authorization"));
         String username = null;
-        String jwtToken = null;
 
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.substring(7);
+        if (jwtToken != null) {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                System.out.println("Unable to get JWT Token");
+                log.warn("Unable to get username from JWT Token");
             } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token has expired");
+                log.warn("JWT Token has expired");
             }
         } else {
-            logger.warn("JWT Token does not begin with Bearer String");
+            log.warn("JWT Token does not begin with Bearer String");
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

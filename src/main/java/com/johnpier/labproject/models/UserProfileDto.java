@@ -2,14 +2,15 @@ package com.johnpier.labproject.models;
 
 import lombok.*;
 
-import java.util.Date;
+import java.util.*;
 
 @lombok.Data
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public class UserProfile {
+public class UserProfileDto {
     private String firstName;
     private String secondName;
     private String email;
@@ -17,4 +18,5 @@ public class UserProfile {
     private String city;
     private Byte gender;
     private Date birthday;
+    private List<UserRolePermissionsDto> roles;
 }

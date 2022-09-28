@@ -1,7 +1,7 @@
 package com.johnpier.labproject.services;
 
 import com.johnpier.labproject.entities.User;
-import com.johnpier.labproject.models.UserProfile;
+import com.johnpier.labproject.models.UserProfileDto;
 import com.johnpier.labproject.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,11 +67,11 @@ public class UserRepositoryService {
         return this.getUserByLogin(login).getFirstName();
     }
 
-    public UserProfile getUserProfileByLogin(String login) {
+    public UserProfileDto getUserProfileByLogin(String login) {
         User user = repository.getUserByLogin(login);
         log.info("Map userProfile model");
 
-        UserProfile userProfile = new UserProfile();
+        UserProfileDto userProfile = new UserProfileDto();
         userProfile.setCity(user.getCity());
         userProfile.setEmail(user.getEmail());
         userProfile.setCountry(user.getCountry());
