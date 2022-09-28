@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comments")
-@Data
+@lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {

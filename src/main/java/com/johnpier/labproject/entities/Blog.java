@@ -9,6 +9,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "blogs")
+@lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Blog {

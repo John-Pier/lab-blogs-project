@@ -3,11 +3,11 @@ package com.johnpier.labproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user_roles")
-@Data
+@lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRole {

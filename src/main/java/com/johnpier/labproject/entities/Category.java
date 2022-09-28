@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "categories")
-@Data
+@lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {

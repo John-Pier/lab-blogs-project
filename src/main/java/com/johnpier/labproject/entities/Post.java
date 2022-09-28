@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@lombok.Data
 @Table(name = "posts")
 @NoArgsConstructor
 @AllArgsConstructor
