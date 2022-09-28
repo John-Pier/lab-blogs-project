@@ -49,10 +49,4 @@ public class MainController {
         log.info("Init actions succeeded");
         return ResponseEntity.ok("ok");
     }
-
-//    @GetMapping(value = "/image/", produces = MediaType.IMAGE_JPEG_VALUE)
-//    public @ResponseBody byte[] getImageAsByteArray(@RequestParam String path) throws IOException {
-//        InputStream in = getClass().getResourceAsStream("/images/" + path);
-//        return IOUtils.toByteArray(in);
-//    }
 }

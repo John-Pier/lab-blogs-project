@@ -1,8 +1,8 @@
 package com.johnpier.labproject.services;
 
 import com.johnpier.labproject.entities.User;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
@@ -12,9 +12,8 @@ import java.util.HashSet;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class DefaultUserDetailsService implements UserDetailsService {
-
-    @Autowired
     private UserRepositoryService userRepositoryService;
 
     @Override

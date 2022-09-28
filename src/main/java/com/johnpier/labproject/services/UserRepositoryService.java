@@ -1,7 +1,7 @@
 package com.johnpier.labproject.services;
 
 import com.johnpier.labproject.entities.User;
-import com.johnpier.labproject.models.UserProfileDto;
+import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserRepositoryService {
-
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     private final UserRepository repository;
 
     @Autowired
@@ -42,18 +40,20 @@ public class UserRepositoryService {
         return repository.getUserByLogin(login) == null;
     }
 
-    public boolean saveUser(User user) {
+    public UserProfileDto saveUser(UserRegisterDto user) throws Exception {
         User userFromDB = repository.getUserByLogin(user.getLogin());
         if (userFromDB == null) {
-            return false;
+            throw new Exception("User Already Exist!");
         }
 
-        log.info(user.getPassword());
-        log.info(new BCryptPasswordEncoder().encode(user.getPassword()));
+        log.info("Save user: " + user.getLogin() + ":" + user.getPassword());
+        log.info(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        repository.save(user);
-        return true;
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        //repository.save(user); // TODO: convert model
+
+        return null;
     }
 
     public User createUser(User user) {
