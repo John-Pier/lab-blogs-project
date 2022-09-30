@@ -1,13 +1,11 @@
 package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.configs.Constants;
-import com.johnpier.labproject.entities.User;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -20,19 +18,19 @@ public class MainController {
         this.userService = userService;
     }
 
-    @GetMapping("/test/admin")
-    public List<User> findAll() throws Exception {
-        return userService.getAll();
-    }
-
-    @GetMapping()
-    public String message() {
-        log.info("message!");
-        return "Works";
-    }
-
-    @GetMapping("/test")
-    public User findByLogin() throws Exception {
-        return userService.getUserByLogin("test");
-    }
+//    @GetMapping("/test/admin")
+//    public List<User> findAll() throws Exception {
+//        return userService.getAll();
+//    }
+//
+//    @GetMapping()
+//    public String message() {
+//        log.info("message!");
+//        return "Works";
+//    }
+//
+//    @GetMapping("/test")
+//    public User findByLogin() throws Exception {
+//        return userService.getUserByLogin("test");
+//    }
 }

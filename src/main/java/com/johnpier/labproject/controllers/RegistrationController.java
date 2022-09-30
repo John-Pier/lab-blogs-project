@@ -1,7 +1,7 @@
 package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.configs.Routes;
-import com.johnpier.labproject.controllers.validators.RegistrationValidators;
+import com.johnpier.labproject.controllers.validators.UserDtoValidators;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ public class RegistrationController {
         UserProfileDto userProfileDto = null;
 
         try {
-            RegistrationValidators.validate(userWithCredentialsDto);
+            UserDtoValidators.validate(userWithCredentialsDto);
             userProfileDto = userService.createUser(userWithCredentialsDto);
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());

@@ -11,12 +11,13 @@ import java.util.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class UserProfileDto {
+    private String login;
     private String firstName;
     private String secondName;
     private String email;
     private String country;
     private String city;
     private Byte gender;
-    private Date birthday;
+    private Date birthDate;
     private List<UserRolePermissionsDto> roles;
 }

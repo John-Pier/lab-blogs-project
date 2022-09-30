@@ -24,7 +24,7 @@ public class JwtTokenUtil implements Serializable {
     @Autowired
     private DefaultUserDetailsService userRepositoryService;
 
-    public static String getTokenFromAuthHeader(String authHeader) {
+    public static String getBearerToken(String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
@@ -66,6 +66,7 @@ public class JwtTokenUtil implements Serializable {
                 .map(GrantedAuthority::getAuthority)
                 .collect(toList()));
         claims.put("firstName", userRepositoryService.getFirstNameByLogin(userDetails.getUsername()));
+        claims.put("login", userDetails.getUsername());
 
         return doGenerateToken(claims, userDetails.getUsername());
     }

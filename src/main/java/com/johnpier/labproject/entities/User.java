@@ -44,8 +44,8 @@ public class User {
     @Column(name = "second_name")
     private String secondName;
 
-    @Column(name = "birthday")
-    private Date birthday;
+    @Column(name = "birth_date")
+    private Date birthDate;
 
     @ManyToMany
     @JoinTable(

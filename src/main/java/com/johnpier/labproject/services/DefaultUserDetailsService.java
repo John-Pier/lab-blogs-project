@@ -1,6 +1,5 @@
 package com.johnpier.labproject.services;
 
-import com.johnpier.labproject.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +17,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userRepositoryService.getUserByLogin(login);
+        var user = userRepositoryService.getUserByLogin(login);
 
         if (user == null) {
             throw new UsernameNotFoundException("User or password invalid");
@@ -41,7 +40,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     }
 
     public String getFirstNameByLogin(String login) {
-        User user = userRepositoryService.getUserByLogin(login);
+        var user = userRepositoryService.getUserProfileByLogin(login);
 
         if (user == null) {
             throw new UsernameNotFoundException("User or password invalid");

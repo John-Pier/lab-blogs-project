@@ -4,6 +4,7 @@ public class Paths {
     public final static String Auth = "/auth";
     public final static String Register = "/register";
     public final static String Logout = "/logout";
+    public final static String Users = "/logout";
     public final static String Image = "/image";
     public final static String Assets = "/assets";
     public final static String All = "/**";

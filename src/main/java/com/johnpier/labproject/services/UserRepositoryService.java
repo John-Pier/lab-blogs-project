@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,11 +28,6 @@ public class UserRepositoryService {
         return user;
     }
 
-    public List<User> getAll() {
-        log.info("get all users");
-        return repository.findAll();
-    }
-
     public boolean isUserExistsByLogin(String login) {
         return repository.getUserByLogin(login) == null;
     }
@@ -44,7 +39,7 @@ public class UserRepositoryService {
     public UserProfileDto saveUser(UserWithCredentialsDto user) throws Exception {
         User userFromDB = repository.getUserByLogin(user.getLogin());
         if (userFromDB == null) {
-            throw new Exception("User Already Exist!");
+            throw new Exception("User not found!");
         }
 
         log.info("Save user: " + user.getLogin() + ":" + user.getPassword());
@@ -68,8 +63,9 @@ public class UserRepositoryService {
         return mapUserToUserProfileDto(repository.save(mapFromUserWithCredentials(userWithCredentials)));
     }
 
-    public String getFirstNameByLogin(String login) {
-        return this.getUserByLogin(login).getFirstName();
+    public List<UserProfileDto> searchUserProfilesByLogins(List<String> logins) {
+//        return repository.findBy(UserProfileDto.class, )
+        return new ArrayList<>(0);
     }
 
     public UserProfileDto getUserProfileByLogin(String login) {
@@ -77,13 +73,14 @@ public class UserRepositoryService {
         log.info("Map userProfile model");
 
         UserProfileDto userProfile = new UserProfileDto();
+        userProfile.setLogin(user.getLogin());
         userProfile.setCity(user.getCity());
         userProfile.setEmail(user.getEmail());
         userProfile.setCountry(user.getCountry());
         userProfile.setFirstName(user.getFirstName());
         userProfile.setSecondName(user.getSecondName());
         userProfile.setGender(user.getGender());
-        userProfile.setBirthday(user.getBirthday());
+        userProfile.setBirthDate(user.getBirthDate());
         return userProfile;
     }
 
@@ -92,7 +89,7 @@ public class UserRepositoryService {
         final var user = new User();
         user.setLogin(userWithCredentials.getLogin());
         user.setPassword(userWithCredentials.getPassword());
-        user.setBirthday(userWithCredentials.getBirthday());
+        user.setBirthDate(userWithCredentials.getBirthDate());
         user.setGender(userWithCredentials.getGender());
         user.setCity(userWithCredentials.getCity());
         user.setCountry(userWithCredentials.getCountry());
@@ -105,7 +102,7 @@ public class UserRepositoryService {
     private UserProfileDto mapUserToUserProfileDto(User user) {
         final var userProfileDto = new UserProfileDto();
         userProfileDto.setEmail(user.getEmail());
-        userProfileDto.setBirthday(user.getBirthday());
+        userProfileDto.setBirthDate(user.getBirthDate());
         userProfileDto.setCity(user.getCity());
         userProfileDto.setCountry(user.getCountry());
         userProfileDto.setFirstName(user.getFirstName());
