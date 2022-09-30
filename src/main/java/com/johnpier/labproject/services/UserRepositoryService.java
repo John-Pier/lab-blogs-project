@@ -33,12 +33,12 @@ public class UserRepositoryService {
         return repository.findAll();
     }
 
-    public User getUserByEmail(String email) {
-        return this.repository.findAllByEmail(email);
-    }
-
     public boolean isUserExistsByLogin(String login) {
         return repository.getUserByLogin(login) == null;
+    }
+
+    public boolean isUserExistsByEmail(String email) {
+        return repository.getUserByEmail(email) == null;
     }
 
     public UserProfileDto saveUser(UserWithCredentialsDto user) throws Exception {
@@ -55,10 +55,16 @@ public class UserRepositoryService {
         return mapUserToUserProfileDto(repository.save(mapFromUserWithCredentials(user)));
     }
 
-    public UserProfileDto createUser(UserWithCredentialsDto userWithCredentials) {
-        userWithCredentials.setPassword(bCryptPasswordEncoder.encode(userWithCredentials.getPassword()));
-        log.info("User created: " + userWithCredentials.getLogin());
+    public UserProfileDto createUser(UserWithCredentialsDto userWithCredentials) throws Exception {
+        if (isUserExistsByLogin(userWithCredentials.getLogin())) {
+            throw new Exception("User Already Exist!");
+        }
 
+        if (userWithCredentials.getEmail() != null && isUserExistsByEmail(userWithCredentials.getEmail())) {
+            throw new Exception("User email Already Exist!");
+        }
+
+        userWithCredentials.setPassword(bCryptPasswordEncoder.encode(userWithCredentials.getPassword()));
         return mapUserToUserProfileDto(repository.save(mapFromUserWithCredentials(userWithCredentials)));
     }
 
