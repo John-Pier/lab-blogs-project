@@ -49,7 +49,7 @@ public class WebSecurityConfig {
                 )
                 .permitAll()
                 .anyRequest().authenticated()
-                // .antMatchers("/some").access("hasRole('ROLE_USER')")
+                // .antMatchers("/some").access("hasRole('USER')")
                 .and()
                 .logout()
                 .logoutUrl(Routes.LOGOUT)

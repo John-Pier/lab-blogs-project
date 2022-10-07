@@ -3,14 +3,13 @@ package com.johnpier.labproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "user_roles")
 @lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRole {
+public class NamedUserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -22,6 +21,6 @@ public class UserRole {
     @Column(name = "permissions", nullable = false)
     private Byte permissions;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+//    @ManyToMany(mappedBy = "roles")
+//    private List<User> users;
 }

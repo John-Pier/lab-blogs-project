@@ -2,10 +2,10 @@ package com.johnpier.labproject.controllers.validators;
 
 import com.johnpier.labproject.models.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class UserDtoValidators {
-    final private static Date maxBirthDate = new Date("01.01.1920");
+    final private static LocalDate maxBirthDate = LocalDate.of(1920, 1, 1);
 
     public static boolean validate(UserProfileDto userProfile) throws Exception {
         if (userProfile == null) {
@@ -22,6 +22,8 @@ public class UserDtoValidators {
         if (userWithCredentials.getLogin() == null || userWithCredentials.getPassword() == null) {
             throw new Exception("Invalid model!");
         }
+
+//        if (userWithCredentials.)
 
         if (userWithCredentials.getEmail() == null) {
             throw new Exception("Email is required!");

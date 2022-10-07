@@ -1,17 +1,13 @@
 package com.johnpier.labproject.auth;
 
-import com.johnpier.labproject.services.DefaultUserDetailsService;
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.*;
 import java.util.function.Function;
-
-import static java.util.stream.Collectors.toList;
 
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -21,8 +17,8 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String secret = "my-best-secret";
 
-    @Autowired
-    private DefaultUserDetailsService userRepositoryService;
+//    @Autowired
+//    private DefaultUserDetailsService userRepositoryService;
 
     public static String getBearerToken(String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -58,26 +54,20 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-
-        claims.put("roles", userDetails.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(toList()));
-        claims.put("firstName", userRepositoryService.getFirstNameByLogin(userDetails.getUsername()));
-        claims.put("login", userDetails.getUsername());
-
-        return doGenerateToken(claims, userDetails.getUsername());
-    }
+//    public String generateToken(UserDetails userDetails) {
+//        Map<String, Object> claims = new HashMap<>();
+//
+//        claims.put("roles", userDetails.getAuthorities()
+//                .stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(toList()));
+//        claims.put("firstName", userRepositoryService.getFirstNameByLogin(userDetails.getUsername()));
+//        claims.put("login", userDetails.getUsername());
+//
+//        return doGenerateToken(claims, userDetails.getUsername());
+//    }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY)).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 }

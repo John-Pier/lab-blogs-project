@@ -2,7 +2,7 @@ package com.johnpier.labproject.models;
 
 import lombok.*;
 
-import java.util.*;
+import java.time.LocalDate;
 
 @lombok.Data
 @Getter
@@ -18,6 +18,6 @@ public class UserProfileDto {
     private String country;
     private String city;
     private Byte gender;
-    private Date birthDate;
-    private List<UserRolePermissionsDto> roles;
+    private LocalDate birthDate;
+    private String userRole;
 }

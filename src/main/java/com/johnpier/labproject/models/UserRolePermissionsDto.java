@@ -1,7 +1,7 @@
 package com.johnpier.labproject.models;
 
 
-import com.johnpier.labproject.entities.UserRole;
+import com.johnpier.labproject.entities.NamedUserRole;
 import lombok.*;
 
 @lombok.Data
@@ -14,10 +14,10 @@ public class UserRolePermissionsDto {
     private String name;
     private Byte permissions;
 
-    public static UserRolePermissionsDto from(UserRole userRole) {
+    public static UserRolePermissionsDto from(NamedUserRole namedUserRole) {
         final UserRolePermissionsDto userRolePermissions = new UserRolePermissionsDto();
-        userRolePermissions.setPermissions(userRole.getPermissions());
-        userRolePermissions.setName(userRole.getName());
+        userRolePermissions.setPermissions(namedUserRole.getPermissions());
+        userRolePermissions.setName(namedUserRole.getName());
         return userRolePermissions;
     }
 }

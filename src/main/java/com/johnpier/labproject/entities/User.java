@@ -1,10 +1,12 @@
 package com.johnpier.labproject.entities;
 
+import com.johnpier.labproject.entities.enums.UserRole;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -45,15 +47,18 @@ public class User {
     private String secondName;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_uuid", referencedColumnName = "UUID"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
-    private List<UserRole> roles;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "users_roles",
+//            joinColumns = @JoinColumn(name = "user_uuid", referencedColumnName = "UUID"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+//    )
+//    private List<NamedUserRole> roles;
+
+    @Column(name = "user_role")
+    private UserRole usersRole;
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;

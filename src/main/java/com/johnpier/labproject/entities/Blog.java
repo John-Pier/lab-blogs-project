@@ -5,7 +5,8 @@ import com.johnpier.labproject.models.EntitiesStatus;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "blogs")
@@ -28,7 +29,7 @@ public class Blog {
     private EntitiesStatus status = null;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @OneToMany(mappedBy = "blog")
     private List<Post> posts;

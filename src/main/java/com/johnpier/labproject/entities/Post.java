@@ -3,7 +3,8 @@ package com.johnpier.labproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @lombok.Data
@@ -29,7 +30,7 @@ public class Post {
     private String content;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;

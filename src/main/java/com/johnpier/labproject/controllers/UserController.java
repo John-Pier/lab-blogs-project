@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -37,6 +38,7 @@ public class UserController {
         return userRepositoryService.getUserProfileByLogin(login);
     }
 
+    @RolesAllowed("hasRole('Admin')")
     @PostMapping("/search")
     public ResponseEntity<?> searchUsers(@RequestBody UserSearchParams userSearchParams) throws Exception {
         if (userSearchParams == null) {

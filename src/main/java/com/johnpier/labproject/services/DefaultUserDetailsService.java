@@ -1,5 +1,6 @@
 package com.johnpier.labproject.services;
 
+import com.johnpier.labproject.entities.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,29 +25,14 @@ public class DefaultUserDetailsService implements UserDetailsService {
         }
 
         var roles = new HashSet<GrantedAuthority>();
-//        if (user.getAdmin()) {
-//            roles.add(new SimpleGrantedAuthority(UserRoleEnum.ROLE_ADMIN.name()));
-//            roles.add(new SimpleGrantedAuthority(UserRoleEnum.ROLE_USER.name()));
-//            log.info("1");
-//        }
-//        else {
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-//            log.info("2");
-//        }
-
-        return new org.springframework.security.core.userdetails.User(user.getLogin(),
-                user.getPassword(),
-                roles);
-    }
-
-    public String getFirstNameByLogin(String login) {
-        var user = userRepositoryService.getUserProfileByLogin(login);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("User or password invalid");
+        var role = user.getUsersRole();
+        if (role == UserRole.ADMIN || role == UserRole.MODERATOR) {
+            roles.add(new SimpleGrantedAuthority(role.name()));
+            roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
+        } else {
+            roles.add(new SimpleGrantedAuthority(role.name()));
         }
 
-        // TODO: return all params
-        return user.getFirstName();
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), roles);
     }
 }
