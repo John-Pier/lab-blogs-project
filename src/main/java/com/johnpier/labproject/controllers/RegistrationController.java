@@ -7,14 +7,15 @@ import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping(Routes.REGISTER)
-@CrossOrigin(origins = "*", maxAge = 4800, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT}, allowedHeaders = "*")
+@CrossOrigin
+@RequestMapping(value = Routes.REGISTER)
 public class RegistrationController {
     private UserRepositoryService userService;
 

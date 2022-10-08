@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping(path = Routes.BLOGS)
-public class BlogController {
+@RequestMapping(path = Routes.COMMENTS)
+public class CommentController {
 }

@@ -18,24 +18,21 @@ import javax.servlet.http.HttpServletResponse;
 @CrossOrigin
 @Slf4j
 @AllArgsConstructor
-@RequestMapping(Routes.AUTH)
+@RequestMapping(path = Routes.AUTH)
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepositoryService userRepositoryService;
     private final ApplicationContext applicationContext;
     private final DefaultUserDetailsService jwtUserDetailsService;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @PostMapping()
-    public ResponseEntity<UserProfileDto> createAuthenticationToken(@RequestBody UserAuthDto userAuthDto, HttpServletResponse response) throws Exception {
+    public ResponseEntity<UserProfileDto> authenticateUser(@RequestBody UserAuthDto userAuthDto, HttpServletResponse response) throws Exception {
         var authentication = authenticate(userAuthDto.getLogin(), userAuthDto.getPassword());
 
         var userDetails = this.jwtUserDetailsService.loadUserByUsername(userAuthDto.getLogin());
         // TODO: сократить до одного запроса к базе
         final var userProfileDto = userRepositoryService.getUserProfileByLogin(userAuthDto.getLogin());
-
-        log.info("User auth success" + userProfileDto.getFirstName());
-
-        var jwtTokenUtil = applicationContext.getBean(JwtTokenUtil.class);
         response.setHeader("Authorization", JwtTokenUtil.toBearerToken(jwtTokenUtil.generateToken(userDetails)));
         return ResponseEntity.ok(userProfileDto);
     }

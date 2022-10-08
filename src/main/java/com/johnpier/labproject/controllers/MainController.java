@@ -9,8 +9,8 @@ import javax.servlet.ServletContext;
 
 @RestController
 @Slf4j
+@CrossOrigin
 @RequestMapping(Constants.API_VERSION)
-@CrossOrigin(origins = "*", maxAge = 4800, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT}, allowedHeaders = "*")
 public class MainController {
     private final UserRepositoryService userService;
 

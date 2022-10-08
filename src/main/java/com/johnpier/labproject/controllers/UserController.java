@@ -14,40 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Slf4j
 @CrossOrigin
-@NoArgsConstructor
+@Slf4j
 @AllArgsConstructor
-@Setter
-@Getter
-@RequestMapping(Routes.USERS)
+@RequestMapping(path = Routes.USERS)
 public class UserController {
     private UserRepositoryService userRepositoryService;
-    private ApplicationContext applicationContext;
 
-//    @Autowired
-//    public UserController(UserRepositoryService userRepositoryService, ApplicationContext applicationContext) {
-//        this.userRepositoryService = userRepositoryService;
-//        this.applicationContext = applicationContext;
-//    }
-
-    @GetMapping("")
-    public UserProfileDto getUserByToken(@RequestHeader("Authorization") String token) {
-        JwtTokenUtil jwtTokenUtil = applicationContext.getBean(JwtTokenUtil.class);
-        String login = jwtTokenUtil.getUsernameFromToken(token.substring(7)); // TODO
-        log.info("GET /user:  login - " + login);
-        return userRepositoryService.getUserProfileByLogin(login);
-    }
-
-
-    @GetMapping("/:login")
-    public UserProfileDto getUserByLogin(@RequestParam("login") String login) {
-        log.info("GET /user/login: " + login);
+    @Secured("ADMIN")
+    @GetMapping(value = "/{login}")
+    public UserProfileDto getUserByLogin(@PathVariable String login) {
+        log.warn("login: " + login);
         return userRepositoryService.getUserProfileByLogin(login);
     }
 
     @Secured("ADMIN")
-    @PostMapping("/search")
+    @PostMapping(value = "/search")
     public ResponseEntity<?> searchUsers(@RequestBody UserSearchParams userSearchParams) throws Exception {
         if (userSearchParams == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error model!");
@@ -55,6 +37,10 @@ public class UserController {
 
         if (userSearchParams.login != null) {
             ResponseEntity.ok(userRepositoryService.getUserProfileByLogin(userSearchParams.login));
+        }
+
+        if (userSearchParams.firstName != null) {
+            ResponseEntity.ok(userSearchParams.firstName); // TODO
         }
 
         if (userSearchParams.logins != null && !userSearchParams.logins.isEmpty()) {
@@ -75,7 +61,7 @@ public class UserController {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    private class UserSearchParams {
+    private static class UserSearchParams {
         private List<String> logins;
         private String login;
         private String firstName;

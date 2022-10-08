@@ -29,6 +29,9 @@ public class UserMappers {
     }
 
     public static User mapFromUserWithCredentials(UserWithCredentialsDto userWithCredentials) {
+        if (userWithCredentials == null) {
+            return null;
+        }
         final var user = new User();
         user.setLogin(userWithCredentials.getLogin());
         user.setPassword(userWithCredentials.getPassword());
@@ -44,6 +47,9 @@ public class UserMappers {
     }
 
     public static UserProfileDto mapUserToUserProfileDto(User user) {
+        if (user == null) {
+            return null;
+        }
         final var userProfileDto = new UserProfileDto();
         userProfileDto.setLogin(user.getLogin());
         userProfileDto.setEmail(user.getEmail());
