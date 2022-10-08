@@ -1,3 +1,50 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "printWidth": 120,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "semi": true,
+  "bracketSameLine": true,
+  "attributeGroups": [
+    "$ANGULAR_STRUCTURAL_DIRECTIVE",
+    "^\\#",
+    "^class$",
+    "$DEFAULT",
+    "^data-",
+    "$ANGULAR_INPUT",
+    "^@",
+    "^\\[@",
+    "$ANGULAR_TWO_WAY_BINDING",
+    "$ANGULAR_OUTPUT"
+  ],
+  "overrides": [
+    {
+      "files": [
+        ".babelrc",
+        ".stylelintrc",
+        ".prettierrc",
+        "jest.config",
+        ".eslintrc",
+        "*.uplugin",
+        "*.bowerrc",
+        "*.jsb3",
+        "*.jsb2",
+        "*.json"
+      ],
+      "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
 }

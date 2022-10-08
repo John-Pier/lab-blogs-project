@@ -1,10 +1,24 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "plugins": [
+    "@nrwl/nx",
+    "@angular-eslint/eslint-plugin",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -14,17 +28,84 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
               }
             ]
           }
-        ]
+        ],
+        "max-len": [
+          "warn",
+          {
+            "code": 110,
+            "comments": 150
+          }
+        ],
+        "no-multiple-empty-lines": [
+          "warn",
+          {
+            "max": 1
+          }
+        ],
+        "eqeqeq": "warn",
+        "semi": "error",
+        "no-console": "warn",
+        "max-statements": 0,
+        "max-classes-per-file": 0,
+        "max-nested-callbacks": 0,
+        "no-restricted-globals": 0,
+        "array-element-newline": [
+          "warn",
+          "consistent"
+        ],
+        "array-bracket-newline": [
+          "warn",
+          "consistent"
+        ],
+        "dot-notation": 0,
+        "arrow-parens": [
+          "error",
+          "as-needed"
+        ],
+        "function-call-argument-newline": [
+          "error",
+          "consistent"
+        ],
+        "object-shorthand": 0
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nrwl/nx/typescript"
+      ],
+      "rules": {
+        "no-unused-private-class-members": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/no-useless-constructor": 0,
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "typeLike",
+            "format": [
+              "PascalCase",
+              "UPPER_CASE"
+            ]
+          }
+        ],
+        "@typescript-eslint/member-ordering": 0,
+        "@typescript-eslint/no-this-alias": 0,
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

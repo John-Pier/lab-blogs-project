@@ -1,0 +1,11 @@
+# Add files here to ignore them from eslint check
+
+/dist
+/coverage
+node_modules/**
+
+polyfills.ts
+test.ts
+environment.*?.ts
+tsconfig*.json
+/.angular/
