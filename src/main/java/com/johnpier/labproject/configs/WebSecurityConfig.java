@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(Routes.ADMIN).access("hasRole('ADMIN')")
+                .antMatchers(Routes.ADMIN).access("hasAnyRole('ADMIN', 'MODERATOR')")
                 .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll()
                 .anyRequest().authenticated()
                 .and().logout().logoutUrl(Routes.LOGOUT).logoutSuccessUrl(Routes.ROOT)

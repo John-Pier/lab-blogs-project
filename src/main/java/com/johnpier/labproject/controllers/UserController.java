@@ -28,7 +28,7 @@ public class UserController {
         return userRepositoryService.getUserProfileByLogin(login);
     }
 
-    @Secured("ADMIN")
+    @Secured("MODERATOR")
     @PostMapping(value = "/search")
     public ResponseEntity<?> searchUsers(@RequestBody UserSearchParams userSearchParams) throws Exception {
         if (userSearchParams == null) {

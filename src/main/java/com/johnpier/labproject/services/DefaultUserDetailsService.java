@@ -26,13 +26,11 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
         var roles = new HashSet<GrantedAuthority>();
         var role = user.getUsersRole();
-        if (role == UserRole.ADMIN || role == UserRole.MODERATOR) {
-            roles.add(new SimpleGrantedAuthority(role.name()));
-            roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
-        } else {
-            roles.add(new SimpleGrantedAuthority(role.name()));
+        if (role == UserRole.ADMIN) {
+            roles.add(new SimpleGrantedAuthority(UserRole.MODERATOR.name()));
         }
-
+        roles.add(new SimpleGrantedAuthority(role.name()));
+        roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), roles);
     }
 }
