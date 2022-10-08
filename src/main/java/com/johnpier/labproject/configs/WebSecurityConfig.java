@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(Routes.ADMIN).access("hasAnyRole('ADMIN', 'MODERATOR')")
+                .antMatchers(Routes.ADMIN + Paths.Any).access("hasAnyRole('ADMIN', 'MODERATOR')")
                 .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll()
                 .anyRequest().authenticated()
                 .and().logout().logoutUrl(Routes.LOGOUT).logoutSuccessUrl(Routes.ROOT)
@@ -57,7 +57,7 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Js, Paths.Assets);
+        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Js, Routes.ASSETS);
     }
 
     @Bean

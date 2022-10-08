@@ -16,4 +16,5 @@ public class Paths {
     public final static String Root = "/";
     public final static String Css = "/**.css";
     public final static String Index = "/index.html";
+    public final static String Any = "/**";
 }

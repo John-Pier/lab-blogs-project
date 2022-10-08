@@ -37,26 +37,24 @@ public class JwtTokenUtil implements Serializable {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        return username!= null && username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    private Boolean isTokenExpired(String token) {
+        final Date expiration =  getClaimFromToken(token, Claims::getExpiration);
+        return expiration.before(new Date());
+    }
+
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
-        System.out.println(claims);
         return claimsResolver.apply(getAllClaimsFromToken(token));
     }
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-    }
-
-    private Boolean isTokenExpired(String token) {
-        final Date expiration =  getClaimFromToken(token, Claims::getExpiration);
-        return expiration.before(new Date());
     }
 
     public String generateToken(UserDetails userDetails) {
