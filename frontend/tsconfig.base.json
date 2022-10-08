@@ -13,10 +13,7 @@
     "paths": {},
     "target": "es2017",
     "module": "esnext",
-    "lib": [
-      "es2021",
-      "dom"
-    ]
+    "lib": ["es2021", "dom"]
   },
   "exclude": ["node_modules", "tmp"]
 }
