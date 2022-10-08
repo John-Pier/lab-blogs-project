@@ -42,9 +42,10 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll().anyRequest().authenticated()
-                // .antMatchers("/some").access("hasRole('USER')")
-                .and().logout().logoutUrl(Routes.LOGOUT).logoutSuccessUrl(Paths.Index)
+                .antMatchers(Routes.ADMIN).access("hasRole('ADMIN')")
+                .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll()
+                .anyRequest().authenticated()
+                .and().logout().logoutUrl(Routes.LOGOUT).logoutSuccessUrl(Routes.ROOT)
                 .invalidateHttpSession(true)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -56,7 +57,7 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Image, Paths.All);
+        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Js, Paths.Assets);
     }
 
     @Bean

@@ -21,12 +21,6 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String secret = "my-best-secret";
 
-    private UserRepositoryService userRepositoryService; // todo
-
-    public JwtTokenUtil(UserRepositoryService userRepositoryService) {
-        this.userRepositoryService = userRepositoryService;
-    }
-
     public static String getBearerToken(String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
@@ -52,7 +46,8 @@ public class JwtTokenUtil implements Serializable {
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
-        return claimsResolver.apply(claims);
+        System.out.println(claims);
+        return claimsResolver.apply(getAllClaimsFromToken(token));
     }
 
     private Claims getAllClaimsFromToken(String token) {
@@ -60,12 +55,8 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
+        final Date expiration =  getClaimFromToken(token, Claims::getExpiration);
         return expiration.before(new Date());
-    }
-
-    private Date getExpirationDateFromToken(String token) {
-        return getClaimFromToken(token, Claims::getExpiration);
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -80,19 +71,4 @@ public class JwtTokenUtil implements Serializable {
     private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis())).setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY)).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
-
-//    public Object parseToken(String jwt) {
-//        Jwts.parser()
-//                .setSigningKey(secret)
-//                .setSigningKeyResolver(signingKeyResolver)
-//                .parseClaimsJws(jwt);
-//        return  null;
-//    }
-
-//    private final SigningKeyResolver signingKeyResolver = new SigningKeyResolverAdapter() {
-//        @Override
-//        public byte[] resolveSigningKeyBytes(JwsHeader header, Claims claims) {
-//            return TextCodec.BASE64.decode(secrets.get(header.getAlgorithm()));
-//        }
-//    }
 }
