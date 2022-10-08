@@ -42,17 +42,9 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        Routes.AUTH,
-                        Routes.REGISTER,
-                        Routes.ROOT
-                )
-                .permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll().anyRequest().authenticated()
                 // .antMatchers("/some").access("hasRole('USER')")
-                .and()
-                .logout()
-                .logoutUrl(Routes.LOGOUT)
+                .and().logout().logoutUrl(Routes.LOGOUT).logoutSuccessUrl(Paths.Index)
                 .invalidateHttpSession(true)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

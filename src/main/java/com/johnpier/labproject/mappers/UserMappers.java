@@ -45,6 +45,7 @@ public class UserMappers {
 
     public static UserProfileDto mapUserToUserProfileDto(User user) {
         final var userProfileDto = new UserProfileDto();
+        userProfileDto.setLogin(user.getLogin());
         userProfileDto.setEmail(user.getEmail());
         userProfileDto.setBirthDate(user.getBirthDate());
         userProfileDto.setCity(user.getCity());

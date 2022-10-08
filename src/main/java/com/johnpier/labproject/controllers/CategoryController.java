@@ -5,6 +5,7 @@ import com.johnpier.labproject.entities.Category;
 import com.johnpier.labproject.repositories.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class CategoryController {
         this.categoryRepository = categoryRepository;
     }
 
+    @Secured("ADMIN")
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> getAllCategories(@RequestParam(required = false) String title) {
         //

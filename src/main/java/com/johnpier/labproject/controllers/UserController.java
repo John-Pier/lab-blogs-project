@@ -6,26 +6,34 @@ import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.*;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
 @Slf4j
 @CrossOrigin
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 @RequestMapping(Routes.USERS)
 public class UserController {
-    private final UserRepositoryService userRepositoryService;
+    private UserRepositoryService userRepositoryService;
+    private ApplicationContext applicationContext;
 
-    public UserController(UserRepositoryService userRepositoryService) {
-        this.userRepositoryService = userRepositoryService;
-    }
+//    @Autowired
+//    public UserController(UserRepositoryService userRepositoryService, ApplicationContext applicationContext) {
+//        this.userRepositoryService = userRepositoryService;
+//        this.applicationContext = applicationContext;
+//    }
 
     @GetMapping("")
     public UserProfileDto getUserByToken(@RequestHeader("Authorization") String token) {
-        JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
+        JwtTokenUtil jwtTokenUtil = applicationContext.getBean(JwtTokenUtil.class);
         String login = jwtTokenUtil.getUsernameFromToken(token.substring(7)); // TODO
         log.info("GET /user:  login - " + login);
         return userRepositoryService.getUserProfileByLogin(login);
@@ -38,7 +46,7 @@ public class UserController {
         return userRepositoryService.getUserProfileByLogin(login);
     }
 
-    @RolesAllowed("hasRole('Admin')")
+    @Secured("ADMIN")
     @PostMapping("/search")
     public ResponseEntity<?> searchUsers(@RequestBody UserSearchParams userSearchParams) throws Exception {
         if (userSearchParams == null) {
