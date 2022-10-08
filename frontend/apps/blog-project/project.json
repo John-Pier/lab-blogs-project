@@ -1,0 +1,95 @@
+{
+  "name": "blog-project",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/blog-project/src",
+  "prefix": "blog-project",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/blog-project",
+        "index": "apps/blog-project/src/index.html",
+        "main": "apps/blog-project/src/main.ts",
+        "polyfills": "apps/blog-project/src/polyfills.ts",
+        "tsConfig": "apps/blog-project/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": [
+          "apps/blog-project/src/favicon.ico",
+          "apps/blog-project/src/assets"
+        ],
+        "styles": ["apps/blog-project/src/styles.less"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/blog-project/src/environments/environment.ts",
+              "with": "apps/blog-project/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "blog-project:build:production"
+        },
+        "development": {
+          "browserTarget": "blog-project:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "blog-project:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/blog-project/**/*.ts",
+          "apps/blog-project/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/blog-project"],
+      "options": {
+        "jestConfig": "apps/blog-project/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
