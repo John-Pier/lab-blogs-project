@@ -27,20 +27,21 @@ public class AuthController {
     private final JwtTokenUtil jwtTokenUtil;
 
     @PostMapping()
-    public ResponseEntity<UserProfileDto> authenticateUser(@RequestBody UserAuthDto userAuthDto, HttpServletResponse response) throws Exception {
-        var authentication = authenticate(userAuthDto.getLogin(), userAuthDto.getPassword());
+    public ResponseEntity<?> authenticateUser(@RequestBody UserAuthDto userAuthDto, HttpServletResponse response) throws Exception {
+        try {
+          authenticate(userAuthDto.getLogin(), userAuthDto.getPassword());
+        } catch (Exception ex) {
+            return ResponseEntity.status(400).body(ex.getMessage());
+        }
 
-        var userDetails = this.jwtUserDetailsService.loadUserByUsername(userAuthDto.getLogin());
-        // TODO: сократить до одного запроса к базе
-        final var userProfileDto = userRepositoryService.getUserProfileByLogin(userAuthDto.getLogin());
-        response.setHeader("Authorization", JwtTokenUtil.toBearerToken(jwtTokenUtil.generateToken(userDetails)));
-        return ResponseEntity.ok(userProfileDto);
+        setAuthHeader(response, userAuthDto.getLogin());
+
+        return ResponseEntity.ok(userRepositoryService.getUserProfileByLogin(userAuthDto.getLogin()));
     }
 
-    private Authentication authenticate(String username, String password) throws Exception {
+    private void authenticate(String username, String password) throws Exception {
         try {
-            // TODO: error usage
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED");
         } catch (BadCredentialsException e) {
@@ -48,5 +49,10 @@ public class AuthController {
         } catch (AuthenticationException e) {
             throw new Exception("AUTH_ERROR");
         }
+    }
+
+    private void setAuthHeader(HttpServletResponse response, String login) {
+        var userDetails = this.jwtUserDetailsService.loadUserByUsername(login);
+        response.setHeader("Authorization", JwtTokenUtil.toBearerToken(jwtTokenUtil.generateToken(userDetails)));
     }
 }

@@ -23,8 +23,6 @@ public class UserDtoValidators {
             throw new Exception("Invalid model!");
         }
 
-//        if (userWithCredentials.)
-
         if (userWithCredentials.getEmail() == null) {
             throw new Exception("Email is required!");
         }
