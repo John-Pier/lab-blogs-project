@@ -1,5 +1,13 @@
-<header></header>
-<main>
-  <router-outlet></router-outlet>
-</main>
-<footer>footer</footer>
+<tui-root class="root">
+  <div class="root root__inner">
+    <header class="wrapper">
+      <h1>Blog Project</h1>
+    </header>
+    <div class="scroll-fixed">
+      <main class="tui-container tui-container_adaptive">
+        <router-outlet></router-outlet>
+      </main>
+      <footer>Footer</footer>
+    </div>
+  </div>
+</tui-root>

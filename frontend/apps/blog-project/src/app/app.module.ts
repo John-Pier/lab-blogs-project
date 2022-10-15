@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { TuiAlertModule, TuiDialogModule, TuiRootModule } from '@taiga-ui/core';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
 import { AppComponent } from './app.component';
@@ -27,8 +29,12 @@ export function tokenGetter() {
   declarations: [...COMPONENTS],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterOutlet,
     AppRouterModule,
+    TuiRootModule,
+    TuiAlertModule,
+    TuiDialogModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

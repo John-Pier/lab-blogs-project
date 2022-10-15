@@ -25,9 +25,16 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "apps/blog-project/src/favicon.ico",
-              "apps/blog-project/src/assets"
+              "apps/blog-project/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@taiga-ui/icons/src",
+                "output": "assets/taiga-ui/icons"
+              }
             ],
             "styles": [
+              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
               "apps/blog-project/src/styles.less"
             ],
             "scripts": []

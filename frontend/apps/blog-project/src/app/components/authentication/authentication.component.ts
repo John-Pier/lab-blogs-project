@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthenticationComponent implements OnInit {
+  test = Array(400).fill(1);
   constructor() {}
 
   ngOnInit(): void {

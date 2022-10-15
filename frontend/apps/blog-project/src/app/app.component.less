@@ -1,3 +1,38 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
 :host {
   display: block;
+  overflow: hidden;
+  height: 100%;
 }
+
+.root {
+  overflow: hidden;
+  height: 100%;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.wrapper {
+  .shadow(2);
+  display: flex;
+  align-items: center;
+  padding: 2rem 2rem 0;
+  background-color: var(--tui-base-02)
+}
+
+.scroll-fixed {
+  flex: 1;
+  overflow: hidden scroll;
+  //overflow-x: auto;
+  .customize-scroll()
+}
+
+footer {
+  padding: 2rem;
+  background-color: var(--tui-base-02)
+}
+
