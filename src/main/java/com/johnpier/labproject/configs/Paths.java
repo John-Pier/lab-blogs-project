@@ -11,6 +11,7 @@ public class Paths {
     public final static String Comments = "/comments";
     public final static String Image = "/image";
     public final static String Js = "/**.js";
+    public final static String Icon = "/**.ico";
     public final static String Assets = "/assets";
     public final static String All = "/**";
     public final static String Root = "/";

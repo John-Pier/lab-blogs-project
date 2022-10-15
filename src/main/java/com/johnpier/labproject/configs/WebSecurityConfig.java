@@ -57,7 +57,7 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Js, Routes.ASSETS);
+        return (web) -> web.ignoring().antMatchers(Paths.Root, Paths.Index, Paths.Css, Paths.Js, Routes.ASSETS, Paths.Icon);
     }
 
     @Bean

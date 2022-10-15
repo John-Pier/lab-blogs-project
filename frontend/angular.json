@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "src/main/resources/static",
+            "outputPath": "../src/main/resources/static",
             "index": "apps/blog-project/src/index.html",
             "main": "apps/blog-project/src/main.ts",
             "polyfills": "apps/blog-project/src/polyfills.ts",
