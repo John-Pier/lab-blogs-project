@@ -4,27 +4,36 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { AuthGuard } from './guards/auth.guard';
+import { BPRoute } from './models';
 
 const routes: Route[] = [
   {
-    path: 'blog',
+    path: BPRoute.Content,
     pathMatch: 'full',
     loadChildren: () => import('./modules/main').then(m => m.MainModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
   },
   {
-    path: 'auth',
+    path: '',
+    pathMatch: 'full',
+    redirectTo: BPRoute.Content,
+  },
+  {
+    path: BPRoute.Auth,
     component: AuthenticationComponent,
   },
   {
-    path: 'register',
+    path: BPRoute.Register,
     component: RegistrationComponent,
   },
   {
-    path: '404',
+    path: BPRoute.NotFound,
     component: NotFoundComponent,
   },
   {
-    path: '403',
+    path: BPRoute.Forbidden,
     component: ForbiddenComponent,
   },
   {

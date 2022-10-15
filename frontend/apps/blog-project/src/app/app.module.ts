@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
 import { AppComponent } from './app.component';
@@ -18,9 +19,23 @@ const COMPONENTS = [
   ForbiddenComponent,
 ];
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [...COMPONENTS],
-  imports: [BrowserModule, RouterOutlet, AppRouterModule],
+  imports: [
+    BrowserModule,
+    RouterOutlet,
+    AppRouterModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        skipWhenExpired: true,
+      },
+    }),
+  ],
   providers: [
     {
       provide: BP_APP_API_CONFIG,
