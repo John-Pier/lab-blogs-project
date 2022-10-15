@@ -11,7 +11,9 @@ const COMPONENTS = [AppComponent, AuthenticationComponent, RegistrationComponent
 @NgModule({
   declarations: [...COMPONENTS],
   imports: [BrowserModule, RouterOutlet, AppRouterModule],
-  providers: [],
+  providers: [
+    {}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
