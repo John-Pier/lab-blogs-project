@@ -1,1 +1,25 @@
-<p>registration works!</p>
+<form class="tui-form tui-space_all-8" [formGroup]="formGroup">
+  <h2 class="tui-text_h2 tui-form__header">Регистрация</h2>
+  <div class="tui-form__row">
+    <tui-input formControlName="login">Логин <span class="tui-required"></span></tui-input>
+    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+  <div class="tui-form__row">
+    <tui-input formControlName="email" type="email">
+      Email
+      <input tuiTextfield type="email" />
+      <span class="tui-required"></span>
+    </tui-input>
+  </div>
+  <div class="tui-form__row">
+    <tui-input-password formControlName="password">Пароль<span class="tui-required"></span></tui-input-password>
+    <tui-error formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+
+  <div class="tui-form__buttons">
+    <button class="tui-form__button" tuiButton appearance="primary" [disabled]="formGroup.invalid">
+      Зарегистрироваться
+    </button>
+    <a class="tui-form__button" tuiButton appearance="secondary" [routerLink]="loginLink">Вход</a>
+  </div>
+</form>

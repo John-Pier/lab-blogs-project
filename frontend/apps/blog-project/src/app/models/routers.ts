@@ -1,4 +1,5 @@
 export enum BPRoute {
+  Root = '/',
   Auth = 'auth',
   Register = 'register',
   Content = 'content',
