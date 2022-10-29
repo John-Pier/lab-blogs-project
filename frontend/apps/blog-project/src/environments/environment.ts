@@ -12,15 +12,11 @@ const localAppAPIConfig: BPAppAPIConfig = {
   PORT: 8080,
   HOST_NAME: location.hostname,
   PROTOCOL: 'http:',
-  API_ADDRESS: '/api/v/n/',
-  API_VERSION: 1.0
+  API_ADDRESS: '/api',
+  API_VERSION: 1.0,
 };
-
 
 export const environment = {
   production: false,
   config: localAppAPIConfig,
 };
-
-
-
