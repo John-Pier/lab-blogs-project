@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BPRoute } from '../../models';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TuiDestroyService } from '@taiga-ui/cdk';
+import { finalize, first } from 'rxjs';
+import { BPRoute, UserAuthDto } from '../../models';
+import { TokenApiService } from '../../services';
+
+type AuthForm = Record<keyof UserAuthDto, FormControl>;
 
 @Component({
   selector: 'bp-authentication',
@@ -15,24 +20,34 @@ export class AuthenticationComponent implements OnInit {
 
   isLoading = false;
 
-  constructor(private readonly formBuilder: FormBuilder) {}
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    // private readonly destroy$: TuiDestroyService,
+    private readonly tokenApiService: TokenApiService
+  ) {}
 
   ngOnInit(): void {
     console.log('ngOnInit');
   }
 
-  private buildAuthForm(): FormGroup {
+  private buildAuthForm(): FormGroup<AuthForm> {
     return this.formBuilder.group({
       login: [null, [Validators.required, Validators.minLength(4)]],
       password: [null, [Validators.required, Validators.minLength(6)]],
-    });
+    } as Record<keyof UserAuthDto, unknown>);
   }
 
   onLogin() {
-    const model = this.formGroup.value;
-    console.log(model);
+    const model = this.formGroup.value as UserAuthDto;
 
-    this.isLoading = true;
+    this.tokenApiService
+      .authenticate$(model)
+      .pipe(
+        finalize(() => {
+          this.isLoading = true;
+        })
+      )
+      .subscribe();
   }
 
   public invalidateForm() {

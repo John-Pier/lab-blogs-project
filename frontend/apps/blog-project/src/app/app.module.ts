@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +15,7 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { TokenApiService } from './services';
 
 const COMPONENTS = [
   AppComponent,
@@ -31,6 +33,7 @@ export function tokenGetter() {
   declarations: [...COMPONENTS],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     RouterOutlet,
     AppRouterModule,
@@ -51,6 +54,7 @@ export function tokenGetter() {
     TuiInputPasswordModule,
   ],
   providers: [
+    TokenApiService,
     {
       provide: BP_APP_API_CONFIG,
       useValue: environment.config,
