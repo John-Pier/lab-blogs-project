@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TuiDestroyService } from '@taiga-ui/cdk';
-import { finalize, first } from 'rxjs';
+import { Router } from '@angular/router';
+import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
+import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { BPRoute, UserAuthDto } from '../../models';
 import { TokenApiService } from '../../services';
 
@@ -22,8 +23,9 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    // private readonly destroy$: TuiDestroyService,
-    private readonly tokenApiService: TokenApiService
+    private readonly router: Router,
+    private readonly tokenApiService: TokenApiService,
+    private readonly alertService: TuiAlertService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,33 @@ export class AuthenticationComponent implements OnInit {
     this.tokenApiService
       .authenticate$(model)
       .pipe(
+        switchMap(() => {
+          this.alertService
+            .open('', {
+              label: 'Вы успешно вошли!',
+              status: TuiNotification.Success,
+              autoClose: true,
+            })
+            .subscribe();
+
+          return this.router.navigate([BPRoute.Root, BPRoute.Content]);
+        }),
+        catchError(error => {
+          this.alertService
+            .open('Проверьте корректность вводимых данных', {
+              label: 'Ошибка входа!',
+              status: TuiNotification.Error,
+              autoClose: true,
+            })
+            .subscribe();
+
+          this.formGroup.setErrors({
+            login: true,
+            password: true,
+          });
+
+          return throwError(() => error);
+        }),
         finalize(() => {
           this.isLoading = true;
         })

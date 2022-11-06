@@ -19,7 +19,6 @@
     "@angular/platform-browser": "~14.2.0",
     "@angular/platform-browser-dynamic": "~14.2.0",
     "@angular/router": "~14.2.0",
-    "@auth0/angular-jwt": "^5.1.0",
     "@nrwl/angular": "14.8.3",
     "@taiga-ui/addon-editor": "^3.6.0",
     "@taiga-ui/cdk": "^3.6.0",

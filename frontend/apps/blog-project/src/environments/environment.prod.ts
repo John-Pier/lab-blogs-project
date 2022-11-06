@@ -5,7 +5,7 @@ const deployAppAPIConfig: BPAppAPIConfig = {
   HOST_NAME: location.hostname,
   PROTOCOL: location.protocol,
   API_ADDRESS: '/api',
-  API_VERSION: 1.0,
+  API_VERSION: '/1',
 };
 
 export const environment = {

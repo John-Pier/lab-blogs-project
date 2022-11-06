@@ -16,8 +16,30 @@
     <tui-error formControlName="password" [error]="[] | tuiFieldError | async"></tui-error>
   </div>
 
+  <h3 class="tui-form__header">Дополнительные поля</h3>
+
+  <div class="tui-form__row">
+    <tui-input formControlName="firstName"> Имя </tui-input>
+  </div>
+  <div class="tui-form__row">
+    <tui-input formControlName="secondName"> Фамилия </tui-input>
+  </div>
+
+  <div class="tui-form__row">
+    <tui-input formControlName="city"> Город </tui-input>
+  </div>
+
+  <div class="tui-form__row">
+    <tui-input-date formControlName="birthDate" [max]="maxDate" [min]="minDate"> Дата рождения </tui-input-date>
+  </div>
+
   <div class="tui-form__buttons">
-    <button class="tui-form__button" tuiButton appearance="primary" [disabled]="formGroup.invalid">
+    <button
+      class="tui-form__button"
+      tuiButton
+      appearance="primary"
+      [disabled]="formGroup.invalid"
+      (click)="registerClick()">
       Зарегистрироваться
     </button>
     <a class="tui-form__button" tuiButton appearance="secondary" [routerLink]="loginLink">Вход</a>

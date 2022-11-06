@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { API_PATH, UserAuthDto, UserProfileDto, UserWithCredentialsDto } from '../../models';
 
 @Injectable()
@@ -12,7 +12,12 @@ export class TokenApiService {
   constructor(private readonly httpClient: HttpClient) {}
 
   authenticate$(authModel: UserAuthDto): Observable<UserProfileDto> {
-    return this.httpClient.post<UserProfileDto>(API_PATH + this.authPath, authModel);
+    return this.httpClient.post<UserProfileDto>(API_PATH + this.authPath, authModel).pipe(
+      map(body => {
+        console.log(body);
+        return body;
+      })
+    );
   }
 
   logout$() {
@@ -20,6 +25,15 @@ export class TokenApiService {
   }
 
   register$(model: UserWithCredentialsDto) {
-    return this.httpClient.post<UserProfileDto>(API_PATH + this.registrationPath, model);
+    return this.httpClient
+      .post<UserProfileDto>(API_PATH + this.registrationPath, model, {
+        observe: 'body',
+      })
+      .pipe(
+        map(body => {
+          console.log(body);
+          return null;
+        })
+      );
   }
 }

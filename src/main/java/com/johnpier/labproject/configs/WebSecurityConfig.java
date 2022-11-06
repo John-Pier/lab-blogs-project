@@ -65,7 +65,7 @@ public class WebSecurityConfig {
         var configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("*"); // TODO: fix
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
-        configuration.setAllowCredentials(true);
+        // configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList(
                 "Access-Control-Allow-Headers",
                 "Access-Control-Allow-Origin",

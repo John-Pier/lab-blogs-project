@@ -1,3 +1,5 @@
 import { environment } from '../../environments/environment';
 
-export const API_PATH = environment.config.API_VERSION + '/v/n/1';
+const config = environment.config;
+
+export const API_PATH = `${config.PROTOCOL}//${config.HOST_NAME}:${config.PORT}${config.API_ADDRESS}/v/n${config.API_VERSION}`;

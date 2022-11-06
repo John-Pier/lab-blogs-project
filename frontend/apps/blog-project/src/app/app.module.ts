@@ -4,9 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
-import { JwtModule } from '@auth0/angular-jwt';
 import { TuiAlertModule, TuiButtonModule, TuiDialogModule, TuiErrorModule, TuiRootModule } from '@taiga-ui/core';
-import { TuiFieldErrorPipeModule, TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
+import { TuiFieldErrorPipeModule, TuiInputDateModule, TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
 import { AppComponent } from './app.component';
@@ -40,18 +39,19 @@ export function tokenGetter() {
     TuiRootModule,
     TuiAlertModule,
     TuiDialogModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        skipWhenExpired: true,
-      },
-    }),
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: tokenGetter,
+    //     skipWhenExpired: true,
+    //   },
+    // }),
     TuiInputModule,
     ReactiveFormsModule,
     TuiButtonModule,
     TuiErrorModule,
     TuiFieldErrorPipeModule,
     TuiInputPasswordModule,
+    TuiInputDateModule,
   ],
   providers: [
     TokenApiService,
