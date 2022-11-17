@@ -4,6 +4,10 @@
   display: block;
   overflow: hidden;
   height: 100%;
+
+  .main {
+    flex: 1;
+  }
 }
 
 .root {
@@ -14,20 +18,33 @@
     display: flex;
     flex-direction: column;
   }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
 }
 
-.wrapper {
-  .shadow(2);
-  display: flex;
-  align-items: center;
+.header {
+  .shadow(1);
   padding: 2rem 2rem 0;
-  background-color: var(--tui-base-02)
+  background-color: var(--tui-base-02);
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 1rem;
+  }
+
+  &__outlet {
+
+  }
 }
 
 .scroll-fixed {
-  flex: 1;
-  overflow: hidden scroll;
-  //overflow-x: auto;
+  overflow: hidden auto;
   .customize-scroll()
 }
 

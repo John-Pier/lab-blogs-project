@@ -1,13 +1,20 @@
 <tui-root class="root">
   <div class="root root__inner">
-    <header class="wrapper">
-      <h1>Blog Project</h1>
+    <header class="header">
+      <div class="header__container tui-container tui-container_adaptive">
+        <h1>Blog Project</h1>
+        <div class="header__outlet">
+          <router-outlet name="header-outlet"></router-outlet>
+        </div>
+      </div>
     </header>
-    <div class="scroll-fixed">
-      <main class="tui-container tui-container_adaptive">
+    <div class="root__main scroll-fixed tui-space_top-4">
+      <main class="main tui-container tui-container_adaptive">
         <router-outlet></router-outlet>
       </main>
-      <footer>Footer</footer>
+      <footer>
+        <div class="tui-container tui-container_adaptive">Footer</div>
+      </footer>
     </div>
   </div>
 </tui-root>

@@ -1,4 +1,4 @@
 export * from './api';
 export * from './auth-token.service';
-export * from './auth.interceptor';
-export * from './error-handler.interceptor';
+export * from './interceptors';
+export * from './user-profile.service';

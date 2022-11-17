@@ -5,7 +5,7 @@ import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { BPRoute, UserAuthDto } from '../../models';
 import { AuthTokenApiService } from '../../services';
-import { UserProfileService } from '../../user-profile.service';
+import { UserProfileService } from '../../services/user-profile.service';
 
 type AuthForm = Record<keyof UserAuthDto, FormControl>;
 
@@ -30,9 +30,7 @@ export class AuthenticationComponent implements OnInit {
     private readonly userProfileService: UserProfileService
   ) {}
 
-  ngOnInit(): void {
-    console.log('ngOnInit');
-  }
+  ngOnInit(): void {}
 
   private buildAuthForm(): FormGroup<AuthForm> {
     return this.formBuilder.group({

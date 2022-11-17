@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { API_PATH, UserAuthDto, UserProfileDto, UserProfileWithToken, UserWithCredentialsDto } from '../../models';
 import { AuthTokenService } from '../auth-token.service';
 
@@ -21,11 +21,16 @@ export class AuthTokenApiService {
     );
   }
 
-  logout$() {
-    return this.httpClient.post<void>(API_PATH + this.logoutPath, {});
+  logout$(): Observable<unknown> {
+    this.tokenService.clear();
+    return this.httpClient.post<void>(API_PATH + this.logoutPath, {}).pipe(
+      catchError(() => {
+        return of(true);
+      })
+    );
   }
 
-  register$(model: UserWithCredentialsDto) {
+  register$(model: UserWithCredentialsDto): Observable<UserProfileDto> {
     return this.httpClient.post<UserProfileDto>(API_PATH + this.registrationPath, model);
   }
 }

@@ -1,0 +1,42 @@
+<tui-tabs-with-more class="tabs" [activeItemIndex]="activeItemIndex" [moreContent]="moreTemplate">
+  <button *tuiItem tuiTab (click)="navigateToProfile()">Мой профиль</button>
+</tui-tabs-with-more>
+<div class="divider tui-space_vertical-3 tui-space_left-2"></div>
+<tui-hosted-dropdown
+  #dropdown
+  tuiDropdownAlign="right"
+  tuiDropdownDirection="bottom"
+  [content]="dropdownTemplate"
+  [(open)]="optionsOpen">
+  <div class="content">
+    <button
+      tuiIconButton
+      appearance="icon"
+      size="m"
+      icon="tuiIconMoreVertLarge"
+      [pseudoHover]="dropdown.open || null"></button>
+  </div>
+</tui-hosted-dropdown>
+
+<ng-template #dropdownTemplate let-activeZone>
+  <div class="dropdown-content">
+    <div class="user-info">
+      <div>
+        <div class="tui-text_body-m">{{ userFullName }}</div>
+        <div class="user-info__login tui-text_body-s">{{ userProfile?.login }}</div>
+      </div>
+      <tui-avatar size="m" [text]="userFullName || userProfile?.login || ''" [autoColor]="true"></tui-avatar>
+    </div>
+    <hr />
+    <tui-data-list tuiDataListDropdownManager size="m" [tuiActiveZoneParent]="activeZone">
+      <button *ngFor="let option of options" size="m" tuiOption (click)="option.onClick()">
+        {{ option.name }}
+        <tui-svg *ngIf="option.icon" [src]="option.icon"></tui-svg>
+      </button>
+    </tui-data-list>
+  </div>
+</ng-template>
+
+<ng-template #moreTemplate>
+  <tui-svg src="tuiIconMoreHorLarge"></tui-svg>
+</ng-template>

@@ -33,7 +33,7 @@
     <tui-input-date formControlName="birthDate" [max]="maxDate" [min]="minDate"> Дата рождения </tui-input-date>
   </div>
 
-  <div class="tui-form__buttons">
+  <div class="tui-form__buttons" (click)="formGroup.updateValueAndValidity()">
     <button
       class="tui-form__button"
       tuiButton

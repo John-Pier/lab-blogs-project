@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserProfileDto } from './models';
+import { UserProfileDto } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,10 @@ export class UserProfileService {
 
   setUserProfile(profile: UserProfileDto) {
     localStorage.setItem(this.profile_key, JSON.stringify(profile));
+  }
+
+  clearUserProfile() {
+    localStorage.removeItem(this.profile_key);
   }
 
   hasUserProfile(): boolean {

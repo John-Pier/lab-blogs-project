@@ -11,4 +11,6 @@ public class Routes {
     public static final String COMMENTS = Constants.API_VERSION + Paths.Comments;
     public static final String CATEGORIES = Constants.API_VERSION + Paths.Categories;
     public static final String ROOT = Paths.Index;
+    public static final String VIEW_AUTH = Paths.Index;
+    public static final String VIEW_REGISTER = Paths.Index;
 }
