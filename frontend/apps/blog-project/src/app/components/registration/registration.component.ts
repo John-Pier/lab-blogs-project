@@ -5,7 +5,7 @@ import { TuiDay } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { BPRoute } from '../../models';
-import { TokenApiService } from '../../services';
+import { AuthTokenApiService } from '../../services';
 
 @Component({
   selector: 'bp-registration',
@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly formBuilder: FormBuilder,
-    private readonly tokenApiService: TokenApiService,
+    private readonly tokenApiService: AuthTokenApiService,
     private readonly alertService: TuiAlertService
   ) {}
 

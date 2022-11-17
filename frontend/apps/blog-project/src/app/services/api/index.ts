@@ -1,1 +1,1 @@
-export * from './token-api.service';
+export * from './auth-token-api.service';

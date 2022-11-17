@@ -1,8 +1,8 @@
 <form class="tui-form tui-space_all-8" [formGroup]="formGroup">
   <h2 class="tui-text_h2 tui-form__header">Вход</h2>
   <div class="tui-form__row">
-    <tui-input formControlName="login"
-      >Логин
+    <tui-input formControlName="login">
+      Логин
       <span class="tui-required"></span>
     </tui-input>
     <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
@@ -18,11 +18,10 @@
         appearance="primary"
         [disabled]="formGroup.invalid"
         [showLoader]="isLoading"
-        (click)="onLogin(); $event.stopPropagation()">
+        (click)="onLogin()">
         Войти
       </button>
     </div>
-
     <a class="tui-form__button" tuiButton appearance="secondary" [routerLink]="registerLink">Зарегистрироваться</a>
   </div>
 </form>

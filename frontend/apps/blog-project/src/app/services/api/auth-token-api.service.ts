@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
 import { API_PATH, UserAuthDto, UserProfileDto, UserWithCredentialsDto } from '../../models';
 
 @Injectable()
-export class TokenApiService {
+export class AuthTokenApiService {
   private authPath = '/auth';
   private logoutPath = '/logout';
   private registrationPath = '/register';

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +14,9 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { TokenApiService } from './services';
+import { AuthTokenApiService } from './services';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { ErrorHandlerInterceptor } from './services/error-handler.interceptor';
 
 const COMPONENTS = [
   AppComponent,
@@ -39,12 +41,6 @@ export function tokenGetter() {
     TuiRootModule,
     TuiAlertModule,
     TuiDialogModule,
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: tokenGetter,
-    //     skipWhenExpired: true,
-    //   },
-    // }),
     TuiInputModule,
     ReactiveFormsModule,
     TuiButtonModule,
@@ -54,7 +50,17 @@ export function tokenGetter() {
     TuiInputDateModule,
   ],
   providers: [
-    TokenApiService,
+    AuthTokenApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    },
     {
       provide: BP_APP_API_CONFIG,
       useValue: environment.config,

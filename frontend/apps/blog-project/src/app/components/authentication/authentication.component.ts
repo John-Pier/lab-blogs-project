@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { BPRoute, UserAuthDto } from '../../models';
-import { TokenApiService } from '../../services';
+import { AuthTokenApiService } from '../../services';
 
 type AuthForm = Record<keyof UserAuthDto, FormControl>;
 
@@ -24,7 +24,7 @@ export class AuthenticationComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly tokenApiService: TokenApiService,
+    private readonly tokenApiService: AuthTokenApiService,
     private readonly alertService: TuiAlertService
   ) {}
 
@@ -80,7 +80,6 @@ export class AuthenticationComponent implements OnInit {
   }
 
   public invalidateForm() {
-    console.log('invalidateForm');
     this.formGroup.updateValueAndValidity();
   }
 }
