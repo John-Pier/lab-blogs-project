@@ -18,3 +18,7 @@ export type UserProfileDto = {
 };
 
 export type UserWithCredentialsDto = UserProfileDto & UserAuthDto;
+
+export type UserProfileWithToken = UserProfileDto & {
+  token: string;
+};

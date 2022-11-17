@@ -74,7 +74,7 @@ export class RegistrationComponent implements OnInit {
           return throwError(() => error);
         }),
         finalize(() => {
-          this.isLoading = true;
+          this.isLoading = false;
         })
       )
       .subscribe();

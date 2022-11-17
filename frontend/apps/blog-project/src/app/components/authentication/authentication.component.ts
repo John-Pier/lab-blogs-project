@@ -5,6 +5,7 @@ import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { BPRoute, UserAuthDto } from '../../models';
 import { AuthTokenApiService } from '../../services';
+import { UserProfileService } from '../../user-profile.service';
 
 type AuthForm = Record<keyof UserAuthDto, FormControl>;
 
@@ -25,7 +26,8 @@ export class AuthenticationComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly tokenApiService: AuthTokenApiService,
-    private readonly alertService: TuiAlertService
+    private readonly alertService: TuiAlertService,
+    private readonly userProfileService: UserProfileService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class AuthenticationComponent implements OnInit {
     this.tokenApiService
       .authenticate$(model)
       .pipe(
-        switchMap(() => {
+        switchMap(user => {
           this.alertService
             .open('', {
               label: 'Вы успешно вошли!',
@@ -53,7 +55,9 @@ export class AuthenticationComponent implements OnInit {
               autoClose: true,
             })
             .subscribe();
+          this.userProfileService.setUserProfile(user);
 
+          console.log(user);
           return this.router.navigate([BPRoute.Root, BPRoute.Content]);
         }),
         catchError(error => {
@@ -73,7 +77,7 @@ export class AuthenticationComponent implements OnInit {
           return throwError(() => error);
         }),
         finalize(() => {
-          this.isLoading = true;
+          this.isLoading = false;
         })
       )
       .subscribe();

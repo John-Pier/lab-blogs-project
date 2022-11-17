@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import localeRu from '@angular/common/locales/ru';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,9 +16,7 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { AuthTokenApiService } from './services';
-import { AuthInterceptor } from './services/auth.interceptor';
-import { ErrorHandlerInterceptor } from './services/error-handler.interceptor';
+import { AuthInterceptor, AuthTokenApiService, ErrorHandlerInterceptor } from './services';
 
 const COMPONENTS = [
   AppComponent,
@@ -29,6 +29,8 @@ const COMPONENTS = [
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [...COMPONENTS],

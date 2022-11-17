@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_PATH, UserAuthDto, UserProfileDto, UserWithCredentialsDto } from '../../models';
+import { map, Observable } from 'rxjs';
+import { API_PATH, UserAuthDto, UserProfileDto, UserProfileWithToken, UserWithCredentialsDto } from '../../models';
+import { AuthTokenService } from '../auth-token.service';
 
 @Injectable()
 export class AuthTokenApiService {
@@ -8,12 +10,12 @@ export class AuthTokenApiService {
   private logoutPath = '/logout';
   private registrationPath = '/register';
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient, private readonly tokenService: AuthTokenService) {}
 
   authenticate$(authModel: UserAuthDto): Observable<UserProfileDto> {
-    return this.httpClient.post<UserProfileDto>(API_PATH + this.authPath, authModel).pipe(
+    return this.httpClient.post<UserProfileWithToken>(API_PATH + this.authPath, authModel).pipe(
       map(body => {
-        console.log(body);
+        this.tokenService.setAuth(body.token);
         return body;
       })
     );
@@ -24,15 +26,6 @@ export class AuthTokenApiService {
   }
 
   register$(model: UserWithCredentialsDto) {
-    return this.httpClient
-      .post<UserProfileDto>(API_PATH + this.registrationPath, model, {
-        observe: 'body',
-      })
-      .pipe(
-        map(body => {
-          console.log(body);
-          return null;
-        })
-      );
+    return this.httpClient.post<UserProfileDto>(API_PATH + this.registrationPath, model);
   }
 }

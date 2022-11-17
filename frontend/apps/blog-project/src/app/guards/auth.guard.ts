@@ -8,7 +8,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { BPRoute } from '../models';
-import { AuthTokenService } from '../services/auth-token.service';
+import { AuthTokenService } from '../services';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private readonly authService: AuthTokenService, private readonly router: Router) {}
 
   public canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): boolean | UrlTree {
-    console.log('AuthGuard');
-    if (this.authService.isAuthenticated()) {
-      return true;
-    }
-    return this.router.createUrlTree([BPRoute.Auth]);
+    return !this.authService.isAuthenticated() ? this.router.createUrlTree([BPRoute.Auth]) : true;
   }
 
   public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {

@@ -20,4 +20,5 @@ public class UserProfileDto {
     private Byte gender;
     private LocalDate birthDate;
     private String userRole;
+    private String token;
 }

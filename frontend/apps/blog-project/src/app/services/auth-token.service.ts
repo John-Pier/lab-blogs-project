@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthTokenService {
-  private readonly tokenKey = 'access_token';
+  readonly tokenKey = 'access_token';
 
   constructor() {}
 
