@@ -15,9 +15,7 @@ import { AuthTokenApiService } from '../../services';
 })
 export class RegistrationComponent implements OnInit {
   readonly formGroup = this.buildRegisterForm();
-
   readonly loginLink = [BPRoute.Root, BPRoute.Auth];
-
   readonly minDate: TuiDay = new TuiDay(1900, 1, 1);
   readonly maxDate: TuiDay = TuiDay.currentUtc();
 
@@ -64,7 +62,7 @@ export class RegistrationComponent implements OnInit {
         }),
         catchError(error => {
           this.alertService
-            .open('Проверьте корректность вводимых данных', {
+            .open(error.error, {
               label: 'Ошибка регистрации!',
               status: TuiNotification.Error,
               autoClose: true,

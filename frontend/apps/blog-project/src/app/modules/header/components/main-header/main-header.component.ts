@@ -16,6 +16,7 @@ export class MainHeaderComponent implements OnInit {
   optionsOpen = false;
   activeItemIndex = 0;
 
+  readonly profilePath = [BPRoute.Root, BPRoute.Content, BPRoute.Profile];
   readonly options = [
     {
       name: 'Выйти',
@@ -36,7 +37,7 @@ export class MainHeaderComponent implements OnInit {
   }
 
   public navigateToProfile() {
-    this.router.navigate([BPRoute.Root, BPRoute.Profile]);
+    this.router.navigate([BPRoute.Root, BPRoute.Content, BPRoute.Profile]);
   }
 
   public logout() {

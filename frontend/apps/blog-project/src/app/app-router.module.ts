@@ -10,7 +10,6 @@ import { BPRoute } from './models';
 const routes: Route[] = [
   {
     path: BPRoute.Content,
-    pathMatch: 'full',
     loadChildren: () => import('./modules/main').then(m => m.MainModule),
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],

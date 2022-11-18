@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
+import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
 import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { BPRoute, UserAuthDto } from '../../models';
-import { AuthTokenApiService } from '../../services';
-import { UserProfileService } from '../../services/user-profile.service';
+import { AuthTokenApiService, UserProfileService } from '../../services';
 
 type AuthForm = Record<keyof UserAuthDto, FormControl>;
 
@@ -14,6 +14,14 @@ type AuthForm = Record<keyof UserAuthDto, FormControl>;
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: TUI_VALIDATION_ERRORS,
+      useValue: {
+        authError: () => 'Ошибка входа! Проверьте корректность введенных данных',
+      },
+    },
+  ],
 })
 export class AuthenticationComponent implements OnInit {
   readonly formGroup = this.buildAuthForm();
@@ -67,10 +75,14 @@ export class AuthenticationComponent implements OnInit {
             })
             .subscribe();
 
-          this.formGroup.setErrors({
-            login: true,
-            password: true,
-          });
+          this.formGroup.controls.password.setErrors(
+            {
+              authError: true,
+            },
+            {
+              emitEvent: true,
+            }
+          );
 
           return throwError(() => error);
         }),

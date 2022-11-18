@@ -1,5 +1,5 @@
 <tui-tabs-with-more class="tabs" [activeItemIndex]="activeItemIndex" [moreContent]="moreTemplate">
-  <button *tuiItem tuiTab (click)="navigateToProfile()">Мой профиль</button>
+  <a *tuiItem tuiTab routerLinkActive="active" [routerLink]="profilePath">Мой профиль</a>
 </tui-tabs-with-more>
 <div class="divider tui-space_vertical-3 tui-space_left-2"></div>
 <tui-hosted-dropdown

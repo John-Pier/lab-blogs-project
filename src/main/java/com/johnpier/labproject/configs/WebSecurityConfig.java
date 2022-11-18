@@ -32,9 +32,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors()
-                .and()
-                .csrf().disable() // TODO: fix
+        http.cors().and().csrf().disable() // TODO: fix
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().antMatchers(Routes.ADMIN + Paths.Any).access("hasAnyRole('ADMIN', 'MODERATOR')").antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll().anyRequest().authenticated().and().logout().logoutUrl(Routes.LOGOUT).clearAuthentication(true).logoutSuccessUrl(Routes.ROOT)
                 .invalidateHttpSession(true)
                 .and()

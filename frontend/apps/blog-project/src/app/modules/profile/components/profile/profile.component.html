@@ -1,0 +1,42 @@
+<h2>{{ userFullName }}</h2>
+<table *ngIf="userProfile" class="tui-table table">
+  <colgroup>
+    <col class="col-name" />
+  </colgroup>
+  <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+    <td class="tui-table__td tui-table__td_first">Логин</td>
+    <td class="tui-table__td tui-table__td_first">
+      {{ userProfile.login }}
+    </td>
+  </tr>
+  <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+    <td class="tui-table__td tui-table__td_first">Email</td>
+    <td class="tui-table__td tui-table__td_first">
+      {{ userProfile.email || '-' }}
+    </td>
+  </tr>
+  <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+    <td class="tui-table__td tui-table__td_first">Дата рожжения</td>
+    <td class="tui-table__td tui-table__td_first">
+      {{ userProfile.birthDate || '-' }}
+    </td>
+  </tr>
+  <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+    <td class="tui-table__td tui-table__td_first">Пол</td>
+    <td class="tui-table__td tui-table__td_first">
+      {{ userProfile.gender || '-' }}
+    </td>
+  </tr>
+  <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+    <td class="tui-table__td tui-table__td_first">Страна</td>
+    <td class="tui-table__td tui-table__td_first">
+      {{ userProfile.country || '-' }}
+    </td>
+  </tr>
+  <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+    <td class="tui-table__td tui-table__td_first">Город</td>
+    <td class="tui-table__td tui-table__td_first">
+      {{ userProfile.city || '-' }}
+    </td>
+  </tr>
+</table>
