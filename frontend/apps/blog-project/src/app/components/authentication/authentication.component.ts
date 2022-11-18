@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit';
-import { catchError, finalize, switchMap, throwError } from 'rxjs';
+import { catchError, finalize, switchMap } from 'rxjs';
 import { BPRoute, UserAuthDto } from '../../models';
 import { AuthTokenApiService, UserProfileService } from '../../services';
 
@@ -50,6 +50,9 @@ export class AuthenticationComponent implements OnInit {
   onLogin() {
     const model = this.formGroup.value as UserAuthDto;
 
+    this.formGroup.markAsDirty();
+    this.formGroup.updateValueAndValidity();
+
     this.tokenApiService
       .authenticate$(model)
       .pipe(
@@ -58,12 +61,11 @@ export class AuthenticationComponent implements OnInit {
             .open('', {
               label: 'Вы успешно вошли!',
               status: TuiNotification.Success,
-              autoClose: true,
+              autoClose: 1200,
             })
             .subscribe();
           this.userProfileService.setUserProfile(user);
 
-          console.log(user);
           return this.router.navigate([BPRoute.Root, BPRoute.Content]);
         }),
         catchError(error => {
@@ -75,6 +77,15 @@ export class AuthenticationComponent implements OnInit {
             })
             .subscribe();
 
+          this.formGroup.setErrors(
+            {
+              authError: true,
+            },
+            {
+              emitEvent: true,
+            }
+          );
+
           this.formGroup.controls.password.setErrors(
             {
               authError: true,
@@ -84,7 +95,7 @@ export class AuthenticationComponent implements OnInit {
             }
           );
 
-          return throwError(() => error);
+          return [null];
         }),
         finalize(() => {
           this.isLoading = false;
