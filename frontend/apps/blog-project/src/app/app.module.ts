@@ -18,7 +18,7 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { AuthInterceptor, AuthTokenApiService, ErrorHandlerInterceptor } from './services';
+import { AuthInterceptor, AuthTokenApiService, ErrorHandlerInterceptor, MainApiService } from './services';
 
 const COMPONENTS = [
   AppComponent,
@@ -55,6 +55,7 @@ registerLocaleData(localeRu, 'ru');
   ],
   providers: [
     AuthTokenApiService,
+    MainApiService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -10,6 +10,7 @@ public class Routes {
     public static final String BLOGS = Constants.API_VERSION + Paths.Blogs;
     public static final String COMMENTS = Constants.API_VERSION + Paths.Comments;
     public static final String CATEGORIES = Constants.API_VERSION + Paths.Categories;
+    public static final String POSTS = Constants.API_VERSION + Paths.Posts;
     public static final String ROOT = Paths.Index;
     public static final String VIEW_AUTH = Paths.Index;
     public static final String VIEW_REGISTER = Paths.Index;

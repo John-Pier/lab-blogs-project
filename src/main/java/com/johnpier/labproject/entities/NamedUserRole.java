@@ -3,13 +3,14 @@ package com.johnpier.labproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_roles")
 @lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NamedUserRole {
+public class NamedUserRole implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

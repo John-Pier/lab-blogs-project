@@ -8,6 +8,7 @@ public class Paths {
     public final static String Admin = "/admin";
     public final static String Blogs = "/blogs";
     public final static String Categories = "/categories";
+    public final static String Posts = "/posts";
     public final static String Comments = "/comments";
     public final static String Image = "/image";
     public final static String Js = "/**.js";

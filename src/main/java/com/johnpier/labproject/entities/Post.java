@@ -3,6 +3,7 @@ package com.johnpier.labproject.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Table(name = "posts")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

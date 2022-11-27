@@ -1,12 +1,10 @@
 package com.johnpier.labproject.controllers;
 
-import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;

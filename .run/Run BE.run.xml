@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run BE" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
-    <module name="lab-blogs-project" />
+    <module name="lab-project" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.johnpier.labproject.LabProjectApplication" />
     <extension name="coverage">
       <pattern>

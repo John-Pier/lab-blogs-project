@@ -5,6 +5,7 @@ import com.johnpier.labproject.models.EntitiesStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @lombok.Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Blog {
+public class Blog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")

@@ -33,7 +33,16 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable() // TODO: fix
-                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().antMatchers(Routes.ADMIN + Paths.Any).access("hasAnyRole('ADMIN', 'MODERATOR')").antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll().anyRequest().authenticated().and().logout().logoutUrl(Routes.LOGOUT).clearAuthentication(true).logoutSuccessUrl(Routes.ROOT)
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers(Routes.ADMIN + Paths.Any).access("hasAnyRole('ADMIN', 'MODERATOR')")
+                .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .logout().logoutUrl(Routes.LOGOUT).clearAuthentication(true).logoutSuccessUrl(Routes.ROOT)
                 .invalidateHttpSession(true)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -45,7 +54,7 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers(Paths.Index, Paths.Css, Paths.Js, Routes.ASSETS, Paths.Icon);
+        return (web) -> web.ignoring().antMatchers(Routes.ROOT, Paths.Css, Paths.Js, Routes.ASSETS, Paths.Icon);
     }
 
     @Bean

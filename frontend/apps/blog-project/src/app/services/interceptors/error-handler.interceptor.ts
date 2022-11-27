@@ -1,35 +1,29 @@
-import {
-  HttpEvent,
-  HttpEventType,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  private readonly errorStatuses = [500, 400, 404, 403];
   private readonly notRight = 403;
   private readonly notAuth = 401;
+  private readonly errorStatuses = [500, 400, 404, this.notAuth, this.notRight];
 
   constructor(private readonly alertService: TuiAlertService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      tap(event => {
-        if (event.type === HttpEventType.Response) {
-          this.handleResponseStatus(event);
+      catchError((error: HttpErrorResponse) => {
+        if (error instanceof HttpErrorResponse) {
+          this.handleResponseStatus(error);
         }
+
+        return throwError(() => error);
       })
     );
   }
 
-  private handleResponseStatus({ status }: HttpResponse<unknown>) {
+  private handleResponseStatus({ status }: HttpErrorResponse) {
     if (this.errorStatuses.includes(status)) {
       if (status === this.notAuth) {
         this.alertService

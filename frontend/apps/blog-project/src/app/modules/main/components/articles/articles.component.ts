@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainApiService } from '../../../../services';
 
 @Component({
   selector: 'bp-articles',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./articles.component.less'],
 })
 export class ArticlesComponent implements OnInit {
-  constructor() {}
+  readonly blogs$ = this.mainApiService.loadBlogs();
+  readonly categories$ = this.mainApiService.loadCategories();
+  readonly posts$ = this.mainApiService.loadPosts();
+
+  constructor(private readonly mainApiService: MainApiService) {}
 
   ngOnInit(): void {}
 }

@@ -1,6 +1,6 @@
 package com.johnpier.labproject.controllers;
 
-import com.johnpier.labproject.configs.*;
+import com.johnpier.labproject.configs.Routes;
 import com.johnpier.labproject.entities.Category;
 import com.johnpier.labproject.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -26,5 +26,10 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getAllCategories(@RequestParam(required = false) String title) {
         //
         return null;
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<Category>> getAllPosts(@RequestParam(required = false) String fromUserId) {
+        return ResponseEntity.ok(this.categoryRepository.findAll());
     }
 }

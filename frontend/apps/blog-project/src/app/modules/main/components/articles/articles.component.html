@@ -1,2 +1,17 @@
-<h2>Статьи</h2>
-Пока их нет
+<h2>Новые блоги</h2>
+<section>
+  <div *ngFor="let blog of blogs$ | async" class="blog">
+    <h3>B</h3>
+    <div>
+      {{ blog | json }}
+    </div>
+  </div>
+</section>
+<section>
+  <div *ngFor="let post of posts$ | async" class="post">
+    <h3>P</h3>
+    <div>
+      {{ post | json }}
+    </div>
+  </div>
+</section>
