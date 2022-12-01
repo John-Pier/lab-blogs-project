@@ -1,8 +1,8 @@
 package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.configs.Routes;
-import com.johnpier.labproject.entities.Post;
-import com.johnpier.labproject.repositories.PostRepository;
+import com.johnpier.labproject.models.PostPreviewDto;
+import com.johnpier.labproject.services.PostRepositoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,10 @@ import java.util.List;
 @RequestMapping(path = Routes.POSTS)
 public class PostController {
 
-    private final PostRepository postRepository;
+    private final PostRepositoryService postRepositoryService;
 
-    @GetMapping(value = "/all")
-    public List<Post> getAllPosts(@RequestParam(required = false) String fromUserId) {
-        var posts = this.postRepository.findAll();
-
-        return posts;
+    @GetMapping(value = "/previews")
+    public List<PostPreviewDto> getPostsPreview(@RequestParam() String blogId) {
+        return this.postRepositoryService.getPostPreviewByBlogId(blogId);
     }
 }

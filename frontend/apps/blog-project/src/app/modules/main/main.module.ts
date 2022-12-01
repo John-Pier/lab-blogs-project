@@ -1,14 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TuiLinkModule } from '@taiga-ui/core';
-import { TuiBreadcrumbsModule } from '@taiga-ui/kit';
+import { TuiLinkModule, TuiLoaderModule } from '@taiga-ui/core';
+import { TuiBreadcrumbsModule, TuiIslandModule } from '@taiga-ui/kit';
+import { FullNamePipeModule } from '../../pipes';
 import { HeaderModule } from '../header';
-import { MainComponent } from './components';
-import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticlesComponent, MainComponent, PostsPreviewComponent } from './components';
 import { MainRouterModule } from './main-router.module';
 
 @NgModule({
-  declarations: [MainComponent, ArticlesComponent],
-  imports: [CommonModule, MainRouterModule, HeaderModule, TuiBreadcrumbsModule, TuiLinkModule],
+  declarations: [MainComponent, ArticlesComponent, PostsPreviewComponent],
+  imports: [
+    CommonModule,
+    MainRouterModule,
+    HeaderModule,
+    TuiBreadcrumbsModule,
+    TuiLinkModule,
+    TuiIslandModule,
+    FullNamePipeModule,
+    TuiLoaderModule,
+  ],
 })
 export class MainModule {}

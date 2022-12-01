@@ -22,3 +22,7 @@ export type UserWithCredentialsDto = UserProfileDto & UserAuthDto;
 export type UserProfileWithToken = UserProfileDto & {
   token: string;
 };
+
+export type ShortUserDto = Pick<UserProfileDto, 'firstName' | 'secondName' | 'city' | 'gender'> & {
+  id: string;
+};

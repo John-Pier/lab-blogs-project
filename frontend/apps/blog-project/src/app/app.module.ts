@@ -27,10 +27,7 @@ const COMPONENTS = [
   NotFoundComponent,
   ForbiddenComponent,
 ];
-
-export function tokenGetter() {
-  return localStorage.getItem('access_token');
-}
+const PIPES = [];
 
 registerLocaleData(localeRu, 'ru');
 
@@ -80,5 +77,6 @@ registerLocaleData(localeRu, 'ru');
     },
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BPRoute } from '../../models';
+import { BPRoute, BPRouteParam } from '../../models';
 import { MainHeaderComponent } from '../header';
-import { ArticlesComponent, MainComponent } from './components';
+import { ArticlesComponent, MainComponent, PostsPreviewComponent } from './components';
 
 const routes: Route[] = [
   {
@@ -14,8 +14,17 @@ const routes: Route[] = [
         loadChildren: () => import('../profile').then(m => m.ProfileModule),
       },
       {
-        path: '',
+        path: BPRoute.Blogs,
         component: ArticlesComponent,
+      },
+      {
+        path: `${BPRoute.Blogs}/:${BPRouteParam.BlogId}`,
+        component: PostsPreviewComponent,
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: BPRoute.Blogs,
       },
     ],
   },

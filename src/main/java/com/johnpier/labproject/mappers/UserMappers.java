@@ -51,6 +51,7 @@ public class UserMappers {
             return null;
         }
         final var userProfileDto = new UserProfileDto();
+        userProfileDto.setId(user.getUuid());
         userProfileDto.setLogin(user.getLogin());
         userProfileDto.setEmail(user.getEmail());
         userProfileDto.setBirthDate(user.getBirthDate());
@@ -62,5 +63,17 @@ public class UserMappers {
         userProfileDto.setUserRole(mapUserRoleToString(user.getUsersRole()));
 
         return userProfileDto;
+    }
+
+    public static ShortUserDto mapUserToShortUserDto(User user) {
+        final var shortUser = new ShortUserDto();
+
+        shortUser.setId(user.getUuid());
+        shortUser.setFirstName(user.getFirstName());
+        shortUser.setSecondName(user.getSecondName());
+        shortUser.setCity(user.getCity());
+        shortUser.setGender(user.getGender());
+
+        return shortUser;
     }
 }

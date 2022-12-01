@@ -1,0 +1,18 @@
+<ng-container *ngIf="blog$ | async as blog; else loadingTemplate">
+  <section>
+    <h2 class="tui-text_h2">{{ blog.name }}</h2>
+    <p class="blog__categories">{{ blog.categories | json }}</p>
+    <div class="blog__info">
+      <span>{{ blog.createdBy | fullName }}</span>
+      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'short' }}</span>
+    </div>
+    <p class="blog__inner">
+      {{ blog.description }}
+    </p>
+  </section>
+</ng-container>
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <tui-loader [showLoader]="true" [overlay]="true"></tui-loader>
+  </div>
+</ng-template>

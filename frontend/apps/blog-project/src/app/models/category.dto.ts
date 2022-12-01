@@ -1,1 +1,3 @@
-export interface CategoryDto {}
+export interface CategoryDto {
+  id: string;
+}

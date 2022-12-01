@@ -1,1 +1,3 @@
-export interface CommentDto {}
+export interface CommentDto {
+  id: string;
+}

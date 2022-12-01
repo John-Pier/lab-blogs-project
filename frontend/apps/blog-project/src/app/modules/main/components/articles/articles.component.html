@@ -1,17 +1,18 @@
 <h2>Новые блоги</h2>
 <section>
-  <div *ngFor="let blog of blogs$ | async" class="blog">
-    <h3>B</h3>
+  <tui-island *ngFor="let blog of blogs$ | async" class="blog">
+    <p class="tui-island__category">{{ blog.categories | json }}</p>
+    <h3 class="tui-island__title">{{ blog.name }}</h3>
     <div>
-      {{ blog | json }}
+      <span>{{ blog.createdBy | fullName }}</span>
+      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'short' }}</span>
     </div>
-  </div>
+    <p class="blog__inner tui-island__paragraph">
+      {{ blog.description }}
+    </p>
+    <p class="tui-island__paragraph tui-island__paragraph_link">
+      <a tuiLink [routerLink]="getBlogLink(blog.id)"> Подробнее </a>
+    </p>
+  </tui-island>
 </section>
-<section>
-  <div *ngFor="let post of posts$ | async" class="post">
-    <h3>P</h3>
-    <div>
-      {{ post | json }}
-    </div>
-  </div>
-</section>
+<section></section>
