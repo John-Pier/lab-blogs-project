@@ -1,5 +1,5 @@
 <h2>Новые блоги</h2>
-<section>
+<section class="blogs">
   <tui-island *ngFor="let blog of blogs$ | async" class="blog">
     <p class="tui-island__category">{{ blog.categories | categoriesNames }}</p>
     <h3 class="tui-island__title">{{ blog.name }}</h3>
