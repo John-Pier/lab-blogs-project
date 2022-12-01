@@ -49,6 +49,10 @@ export class MainApiService {
     });
   }
 
+  loadPost(postId: string): Observable<PostDto> {
+    return this.httpClient.get<PostDto>(`${API_PATH + this.postsPath + this.fullPath}/${postId}`);
+  }
+
   loadPostsPreview(blogId: string, params?: MainParams): Observable<PostPreviewDto[]> {
     return this.httpClient.get<PostPreviewDto[]>(API_PATH + this.postsPath + this.previewsPath, {
       params: {
@@ -59,7 +63,7 @@ export class MainApiService {
   }
 
   loadComments(postId: string, params?: MainParams): Observable<CommentDto[]> {
-    return this.httpClient.get<CommentDto[]>(API_PATH + this.commentsPath + this.allPath, {
+    return this.httpClient.get<CommentDto[]>(API_PATH + this.commentsPath, {
       params: { postId: postId, ...params },
     });
   }

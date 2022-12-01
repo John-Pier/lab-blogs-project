@@ -6,9 +6,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
-import { TuiAlertModule, TuiButtonModule, TuiDialogModule, TuiErrorModule, TuiRootModule } from '@taiga-ui/core';
+import {
+  TUI_SANITIZER,
+  TuiAlertModule,
+  TuiButtonModule,
+  TuiDialogModule,
+  TuiErrorModule,
+  TuiRootModule,
+} from '@taiga-ui/core';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
 import { TuiFieldErrorPipeModule, TuiInputDateModule, TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { of } from 'rxjs';
 import { environment } from '../environments/environment';
 import { AppRouterModule } from './app-router.module';
@@ -66,6 +74,10 @@ registerLocaleData(localeRu, 'ru');
     {
       provide: TUI_LANGUAGE,
       useValue: of(TUI_RUSSIAN_LANGUAGE),
+    },
+    {
+      provide: TUI_SANITIZER,
+      useClass: NgDompurifySanitizer,
     },
     {
       provide: BP_APP_API_CONFIG,

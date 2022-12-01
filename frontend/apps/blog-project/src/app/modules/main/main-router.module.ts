@@ -3,6 +3,7 @@ import { Route, RouterModule } from '@angular/router';
 import { BPRoute, BPRouteParam } from '../../models';
 import { MainHeaderComponent } from '../header';
 import { ArticlesComponent, BlogDetailsComponent, MainComponent } from './components';
+import { PostDetailsComponent } from './components/post-details';
 
 const routes: Route[] = [
   {
@@ -20,6 +21,10 @@ const routes: Route[] = [
       {
         path: `${BPRoute.Blogs}/:${BPRouteParam.BlogId}`,
         component: BlogDetailsComponent,
+      },
+      {
+        path: `${BPRoute.Posts}/:${BPRouteParam.PostsId}`,
+        component: PostDetailsComponent,
       },
       {
         path: '',

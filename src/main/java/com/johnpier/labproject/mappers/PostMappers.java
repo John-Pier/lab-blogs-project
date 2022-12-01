@@ -1,7 +1,7 @@
 package com.johnpier.labproject.mappers;
 
 import com.johnpier.labproject.entities.Post;
-import com.johnpier.labproject.models.PostPreviewDto;
+import com.johnpier.labproject.models.*;
 
 public class PostMappers {
     public static PostPreviewDto mapToPreview(Post post) {
@@ -17,5 +17,19 @@ public class PostMappers {
         postPreview.setCreatedAt(post.getCreatedAt());
 
         return postPreview;
+    }
+
+    public static PostDto mapToPost(Post post) {
+        final var postDto = new PostDto();
+
+        postDto.setId(post.getId());
+        postDto.setBlogId(post.getBlog().getId()); // TODO: оч тяжело однако
+        postDto.setUser(UserMappers.mapUserToShortUserDto(post.getUser()));
+        postDto.setLabel(post.getLabel());
+        postDto.setDescription(post.getDescription());
+        postDto.setContent(post.getContent());
+        postDto.setCreatedAt(post.getCreatedAt());
+
+        return postDto;
     }
 }

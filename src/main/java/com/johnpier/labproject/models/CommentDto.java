@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class CommentDto implements Serializable {
-    private String uuid;
+    private String id;
     private LocalDate updatedAt = null;
     private LocalDate createdAt;
     private String content;
-    private String userId;
+    private ShortUserDto user;
     private String postId;
 }

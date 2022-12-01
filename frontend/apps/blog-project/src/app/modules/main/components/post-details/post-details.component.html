@@ -1,0 +1,37 @@
+<ng-container *ngIf="post$ | async as post; else loadingTemplate">
+  <section class="tui-text_body-m">
+    <h2 class="tui-text_h2">{{ post.label }}</h2>
+    <div *ngIf="post.createdAt" class="tui-text_body-s">Добавлено: {{ post.createdAt | date: 'short' }}</div>
+    <div>Краткое описание:</div>
+    <p class="post__inner">
+      {{ post.description }}
+    </p>
+    <hr />
+    <tui-editor-socket [content]="post.content"></tui-editor-socket>
+  </section>
+  <section class="comments">
+    <h3 class="tui-text_h3">Коментарии</h3>
+    <div
+      *ngFor="
+        let comment of comments$ | async;
+        trackBy: trackByCommentId;
+        else: commentsLoadingTemplate;
+        empty: emptyTemplate
+      ">
+      {{ comment | json }}
+    </div>
+    <ng-template #emptyTemplate>
+      Никто еще не оставил комметрариев :(
+      <br />
+      Будь первым!
+    </ng-template>
+    <ng-template #commentsLoadingTemplate>
+      <tui-loader></tui-loader>
+    </ng-template>
+  </section>
+</ng-container>
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <tui-loader [showLoader]="true" [overlay]="true"></tui-loader>
+  </div>
+</ng-template>

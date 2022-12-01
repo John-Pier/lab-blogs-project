@@ -1,14 +1,11 @@
 package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.configs.Routes;
-import com.johnpier.labproject.entities.Comment;
-import com.johnpier.labproject.repositories.CommentRepository;
+import com.johnpier.labproject.services.CommentRepositoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @Slf4j
@@ -16,11 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(path = Routes.COMMENTS)
 public class CommentController {
+    private final CommentRepositoryService commentRepositoryService;
 
-    private final CommentRepository commentRepository;
-
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<Comment>> getAllPosts(@RequestParam(required = false) String fromUserId) {
-        return ResponseEntity.ok(this.commentRepository.findAll());
+    @GetMapping(value = "")
+    public ResponseEntity<?> getAllPosts(@RequestParam(required = false) String postId) {
+        if(postId == null) {
+            return ResponseEntity.badRequest().body("[]");
+        }
+        return ResponseEntity.ok(this.commentRepositoryService.findCommentsByPostId(postId));
     }
 }

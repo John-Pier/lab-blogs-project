@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { BlogDto, BPRoute, BPRouteParam, PostPreviewDto } from '../../../../models';
 import { MainApiService } from '../../../../services';
 import { BreadcrumbsService } from '../../services';
@@ -31,6 +31,10 @@ export class BlogDetailsComponent implements OnInit {
           return of(null);
         }
         return this.mainApiService.loadBlog(blogId);
+      }),
+      catchError(() => {
+        this.router.navigate(['/', BPRoute.NotFound]);
+        return of(null);
       }),
       tap(blog => {
         if (blog) {
