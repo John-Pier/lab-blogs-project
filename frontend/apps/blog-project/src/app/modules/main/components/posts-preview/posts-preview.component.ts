@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of, switchMap } from 'rxjs';
-import { BlogDto, BPRoute, BPRouteParam } from '../../../../models';
+import { tuiPure } from '@taiga-ui/cdk';
+import { BPRoute, PostPreviewDto } from '../../../../models';
 import { MainApiService } from '../../../../services';
+import { BreadcrumbsService } from '../../services';
 
 @Component({
   selector: 'bp-posts-preview',
@@ -10,26 +11,22 @@ import { MainApiService } from '../../../../services';
   styleUrls: ['./posts-preview.component.less'],
 })
 export class PostsPreviewComponent implements OnInit {
-  readonly blog$ = this.loadBlog$();
+  @Input()
+  post: PostPreviewDto | undefined;
+
+  showPreview = false;
 
   constructor(
     private readonly mainApiService: MainApiService,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly breadcrumbsService: BreadcrumbsService
   ) {}
 
   ngOnInit(): void {}
 
-  private loadBlog$(): Observable<BlogDto | null> {
-    return this.route.paramMap.pipe(
-      switchMap(params => {
-        const blogId = params.get(BPRouteParam.BlogId);
-        if (!blogId) {
-          this.router.navigate(['/', BPRoute.NotFound]);
-          return of(null);
-        }
-        return this.mainApiService.loadBlog(blogId);
-      })
-    );
+  @tuiPure
+  public getPostLink(id: string): string[] {
+    return ['/', BPRoute.Content, BPRoute.Posts, id];
   }
 }

@@ -1,0 +1,22 @@
+<ng-container *ngIf="blog$ | async as blog; else loadingTemplate">
+  <section class="tui-text_body-m">
+    <h2 class="tui-text_h2">{{ blog.name }}</h2>
+    <p class="blog__categories">{{ blog.categories | json }}</p>
+    <div class="blog__info">
+      <span>{{ blog.createdBy | fullName }}</span>
+      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'shortDate' }}</span>
+    </div>
+    <p class="blog__inner">
+      {{ blog.description }}
+    </p>
+  </section>
+  <h3 *ngIf="blog.posts?.length" class="tui-text_h3">Последние Посты</h3>
+  <section class="posts">
+    <bp-posts-preview *ngFor="let post of blog.posts; trackBy: trackByPostId" [post]="post"></bp-posts-preview>
+  </section>
+</ng-container>
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <tui-loader [showLoader]="true" [overlay]="true"></tui-loader>
+  </div>
+</ng-template>

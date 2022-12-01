@@ -1,4 +1,9 @@
 <tui-breadcrumbs size="m">
-  <a *tuiItem tuiLink [routerLink]="contentPath"> Главная </a>
+  <a *tuiItem tuiLink [routerLink]="contentPath" (click)="onBackClick()"> Главная </a>
+  <ng-container *ngFor="let item of breadcrumbsItems$ | async; let isLast = last">
+    <a *tuiItem tuiLink [routerLink]="(!isLast && item.path) || null" (click)="onBackClick(item.id)">
+      {{ item.label }}
+    </a>
+  </ng-container>
 </tui-breadcrumbs>
 <router-outlet></router-outlet>

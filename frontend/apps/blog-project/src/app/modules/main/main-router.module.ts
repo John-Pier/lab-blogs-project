@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { BPRoute, BPRouteParam } from '../../models';
 import { MainHeaderComponent } from '../header';
-import { ArticlesComponent, MainComponent, PostsPreviewComponent } from './components';
+import { ArticlesComponent, BlogDetailsComponent, MainComponent } from './components';
 
 const routes: Route[] = [
   {
@@ -19,7 +19,7 @@ const routes: Route[] = [
       },
       {
         path: `${BPRoute.Blogs}/:${BPRouteParam.BlogId}`,
-        component: PostsPreviewComponent,
+        component: BlogDetailsComponent,
       },
       {
         path: '',

@@ -1,18 +1,20 @@
-<ng-container *ngIf="blog$ | async as blog; else loadingTemplate">
-  <section>
-    <h2 class="tui-text_h2">{{ blog.name }}</h2>
-    <p class="blog__categories">{{ blog.categories | json }}</p>
-    <div class="blog__info">
-      <span>{{ blog.createdBy | fullName }}</span>
-      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'short' }}</span>
-    </div>
-    <p class="blog__inner">
-      {{ blog.description }}
+<tui-island *ngIf="post" class="post tui-text_body-m">
+  <h3 class="tui-island__title">{{ post.label }}</h3>
+  <div *ngIf="post.createdAt">Добавлено: {{ post.createdAt | date: 'short' }}</div>
+  <p class="post__inner tui-island__paragraph">
+    {{ post.description }}
+  </p>
+  <button *ngIf="!showPreview" tuiButton appearance="outline" size="m" (click)="showPreview = true">
+    Развернуть превью
+  </button>
+  <tui-expand [expanded]="showPreview">
+    <div class="post__preview-header">Превью</div>
+    <p class="tui-island__paragraph">
+      {{ post.preview }}
     </p>
-  </section>
-</ng-container>
-<ng-template #loadingTemplate>
-  <div class="loading">
-    <tui-loader [showLoader]="true" [overlay]="true"></tui-loader>
-  </div>
-</ng-template>
+  </tui-expand>
+  <div *ngIf="post.commentsCount">Коментариев: {{ post.commentsCount }}</div>
+  <p class="tui-island__paragraph tui-island__paragraph_link">
+    <a tuiLink [routerLink]="getPostLink(post.id)"> Подробнее </a>
+  </p>
+</tui-island>

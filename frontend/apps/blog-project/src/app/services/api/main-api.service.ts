@@ -32,7 +32,7 @@ export class MainApiService {
   }
 
   loadBlogsPreview(params?: MainParams): Observable<BlogPreviewDto[]> {
-    return this.httpClient.get<BlogDto[]>(API_PATH + this.blogsPath + this.previewsPath + this.allPath, {
+    return this.httpClient.get<BlogPreviewDto[]>(API_PATH + this.blogsPath + this.previewsPath + this.allPath, {
       params: params,
     });
   }

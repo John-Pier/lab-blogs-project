@@ -1,3 +1,4 @@
+import { PostPreviewDto } from './post.dto';
 import { ShortUserDto } from './user.dto';
 
 export interface BlogPreviewDto {
@@ -10,6 +11,13 @@ export interface BlogPreviewDto {
   categories: any[];
 }
 
-export interface BlogDto extends BlogPreviewDto {
+export interface BlogDto {
   id: string;
+  name: string;
+  description: string;
+  status: 'Active' | 'Archive';
+  createdAt: string | Date;
+  posts: PostPreviewDto[];
+  createdBy: ShortUserDto;
+  categories: any[];
 }
