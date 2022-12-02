@@ -11,15 +11,14 @@
   </section>
   <section class="comments">
     <h3 class="tui-text_h3">Коментарии</h3>
-    <div
+    <bp-comment
       *ngFor="
         let comment of comments$ | async;
         trackBy: trackByCommentId;
         else: commentsLoadingTemplate;
         empty: emptyTemplate
-      ">
-      {{ comment | json }}
-    </div>
+      " [comment]="comment">
+    </bp-comment>
     <ng-template #emptyTemplate>
       Никто еще не оставил комметрариев :(
       <br />

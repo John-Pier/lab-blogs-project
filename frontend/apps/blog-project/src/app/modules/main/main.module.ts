@@ -7,11 +7,12 @@ import { TuiBreadcrumbsModule, TuiIslandModule } from '@taiga-ui/kit';
 import { CategoriesNamesPipeModule, FullNamePipeModule } from '../../pipes';
 import { HeaderModule } from '../header';
 import { ArticlesComponent, BlogDetailsComponent, MainComponent, PostsPreviewComponent } from './components';
+import { CommentComponent } from './components/comment';
 import { PostDetailsComponent } from './components/post-details';
 import { MainRouterModule } from './main-router.module';
 
 @NgModule({
-  declarations: [MainComponent, ArticlesComponent, PostsPreviewComponent, PostDetailsComponent, BlogDetailsComponent],
+  declarations: [MainComponent, ArticlesComponent, PostsPreviewComponent, PostDetailsComponent, CommentComponent, BlogDetailsComponent],
   imports: [
     CommonModule,
     MainRouterModule,

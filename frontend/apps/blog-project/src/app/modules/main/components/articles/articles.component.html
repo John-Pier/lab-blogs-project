@@ -5,7 +5,7 @@
     <h3 class="tui-island__title">{{ blog.name }}</h3>
     <div>
       <span>{{ blog.createdBy | fullName }}</span>
-      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'short' }}</span>
+      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'shortDate' }}</span>
     </div>
     <p class="blog__inner tui-island__paragraph">
       {{ blog.description }}

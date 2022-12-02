@@ -40,6 +40,7 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers(Routes.ADMIN + Paths.Any).access("hasAnyRole('ADMIN', 'MODERATOR')")
                 .antMatchers(Routes.AUTH, Routes.REGISTER, Routes.ROOT).permitAll()
+                .antMatchers("/content/**", "/auth", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl(Routes.LOGOUT).clearAuthentication(true).logoutSuccessUrl(Routes.ROOT)

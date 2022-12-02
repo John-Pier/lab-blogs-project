@@ -1,0 +1,6 @@
+<ng-container *ngIf="comment;">
+  <div class="tui-text_h5">{{comment.user | fullName}}</div>
+  <div *ngIf="comment.createdAt && !comment.updatedAt" class="tui-text_body-s">Добавлено: {{ comment.createdAt | date: 'short' }}</div>
+  <div *ngIf="comment.updatedAt" class="tui-text_body-s">Обновлено: {{ comment.updatedAt | date: 'short' }}</div>
+  <tui-editor-socket [content]="comment.content"></tui-editor-socket>
+</ng-container>

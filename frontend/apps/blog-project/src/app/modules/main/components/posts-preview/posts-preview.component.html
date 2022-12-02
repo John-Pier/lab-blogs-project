@@ -1,6 +1,6 @@
 <tui-island *ngIf="post" class="post tui-text_body-m">
   <h3 class="tui-island__title">{{ post.label }}</h3>
-  <div *ngIf="post.createdAt">Добавлено: {{ post.createdAt | date: 'short' }}</div>
+  <div *ngIf="post.createdAt">Добавлено: {{ post.createdAt | date: 'shortDate' }}</div>
   <p class="post__inner tui-island__paragraph">
     {{ post.description }}
   </p>
