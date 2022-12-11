@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ShortUserDto } from '../../models';
 
 @Pipe({
+  standalone: true,
   name: 'fullName',
 })
 export class FullNamePipe implements PipeTransform {

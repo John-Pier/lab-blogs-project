@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CategoryDto } from '../../models';
 
 @Pipe({
+  standalone: true,
   name: 'categoriesNames',
 })
 export class CategoriesNamesPipe implements PipeTransform {
