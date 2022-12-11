@@ -6,13 +6,7 @@ import { TuiButtonModule, TuiExpandModule, TuiLinkModule, TuiLoaderModule } from
 import { TuiBreadcrumbsModule, TuiIslandModule } from '@taiga-ui/kit';
 import { CategoriesNamesPipe, FullNamePipe } from '../../pipes';
 import { HeaderModule } from '../header';
-import {
-  ArticlesComponent,
-  BlogDetailsComponent,
-  MainComponent,
-  PostFormComponent,
-  PostsPreviewComponent,
-} from './components';
+import { ArticlesComponent, BlogDetailsComponent, MainComponent, PostsPreviewComponent } from './components';
 import { CommentComponent } from './components/comment';
 import { PostDetailsComponent } from './components/post-details';
 import { MainRouterModule } from './main-router.module';
@@ -25,7 +19,6 @@ import { MainRouterModule } from './main-router.module';
     PostDetailsComponent,
     CommentComponent,
     BlogDetailsComponent,
-    PostFormComponent,
   ],
   imports: [
     CommonModule,

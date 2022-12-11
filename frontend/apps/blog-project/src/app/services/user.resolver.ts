@@ -22,7 +22,6 @@ export class UserResolver implements Resolve<UserProfileDto> {
     }
     return this.mainApiService.loadUser(login).pipe(
       tap(user => {
-        console.log('loadUser', user);
         this.userProfileService.setUserProfile(user);
       }),
       catchError(e => {

@@ -12,10 +12,6 @@ export interface PostPreviewDto {
 }
 
 export interface PostDto extends PostPreviewDto {
-  id: string;
-  label: string;
-  description: string;
-  createdAt: string | Date;
   user: ShortUserDto;
   blogId: string;
   content: string;
