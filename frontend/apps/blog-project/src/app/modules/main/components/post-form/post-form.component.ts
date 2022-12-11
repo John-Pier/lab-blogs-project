@@ -6,11 +6,11 @@ import { MainApiService, UserProfileService } from '../../../../services';
 import { BreadcrumbsService } from '../../services';
 
 @Component({
-  selector: 'bp-blog-details',
-  templateUrl: './blog-details.component.html',
-  styleUrls: ['./blog-details.component.less'],
+  selector: 'bp-post-form',
+  templateUrl: './post-form.component.html',
+  styleUrls: ['./post-form.component.less'],
 })
-export class BlogDetailsComponent implements OnInit {
+export class PostFormComponent implements OnInit {
   readonly blog$ = this.loadBlog$();
   readonly user = this.userProfileService.getUserProfile();
 

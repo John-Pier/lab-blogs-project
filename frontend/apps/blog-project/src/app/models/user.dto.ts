@@ -6,6 +6,7 @@ export type UserAuthDto = {
 export type UserRole = 'USER' | 'MODERATOR' | 'ADMIN';
 
 export type UserProfileDto = {
+  id: string;
   login: string;
   firstName: string;
   secondName: string;
@@ -23,6 +24,4 @@ export type UserProfileWithToken = UserProfileDto & {
   token: string;
 };
 
-export type ShortUserDto = Pick<UserProfileDto, 'firstName' | 'secondName' | 'city' | 'gender'> & {
-  id: string;
-};
+export type ShortUserDto = Pick<UserProfileDto, 'firstName' | 'secondName' | 'city' | 'gender' | 'id'>;

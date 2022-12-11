@@ -1,6 +1,11 @@
 <ng-container *ngIf="blog$ | async as blog; else loadingTemplate">
   <section class="tui-text_body-m">
     <h2 class="tui-text_h2">{{ blog.name }}</h2>
+    <button
+      *ngIf="blog.createdBy.id === user.login"
+      tuiIconButton
+      icon="tuiIconEditLarge"
+      (click)="editBlog()"></button>
     <p class="blog__categories">{{ blog.categories | categoriesNames }}</p>
     <div class="blog__info">
       <span>{{ blog.createdBy | fullName }}</span>
@@ -10,6 +15,9 @@
       {{ blog.description }}
     </p>
   </section>
+  <button
+    tuiButton
+    (click)="createPost()"></button>
   <h3 class="tui-text_h3">Последние Посты</h3>
   <section class="posts">
     <bp-posts-preview
