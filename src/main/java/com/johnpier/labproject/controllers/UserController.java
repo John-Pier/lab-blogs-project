@@ -1,5 +1,6 @@
 package com.johnpier.labproject.controllers;
 
+import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.services.UserRepositoryService;
@@ -9,7 +10,7 @@ import org.springframework.http.*;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -18,12 +19,17 @@ import java.util.List;
 @RequestMapping(path = Routes.USERS)
 public class UserController {
     private UserRepositoryService userRepositoryService;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    @Secured("ADMIN")
     @GetMapping(value = "/{login}")
-    public UserProfileDto getUserByLogin(@PathVariable String login) {
+    public ResponseEntity<?> getUserByLogin(@PathVariable String login, @RequestHeader("Authorization") String auth) {
         log.warn("login: " + login);
-        return userRepositoryService.getUserProfileByLogin(login);
+        var token = JwtTokenUtil.getBearerToken(auth);
+        var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
+        if (!Objects.equals(tokenLogin, login)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+        return ResponseEntity.ok(userRepositoryService.getUserProfileByLogin(login));
     }
 
     @Secured("MODERATOR")

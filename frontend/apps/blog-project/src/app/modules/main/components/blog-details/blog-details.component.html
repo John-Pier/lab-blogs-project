@@ -1,11 +1,16 @@
 <ng-container *ngIf="blog$ | async as blog; else loadingTemplate">
   <section class="tui-text_body-m">
-    <h2 class="tui-text_h2">{{ blog.name }}</h2>
-    <button
-      *ngIf="blog.createdBy.id === user.login"
-      tuiIconButton
-      icon="tuiIconEditLarge"
-      (click)="editBlog()"></button>
+    <div class="blog__header">
+      <h2 class="tui-text_h2 tui-space_top-4 tui-space_bottom-4">{{ blog.name }}</h2>
+      <button
+        *ngIf="canEdit(blog)"
+        class="tui-space_left-2"
+        size="m"
+        appearance="flat"
+        tuiIconButton
+        icon="tuiIconEditLarge"
+        (click)="editBlog()"></button>
+    </div>
     <p class="blog__categories">{{ blog.categories | categoriesNames }}</p>
     <div class="blog__info">
       <span>{{ blog.createdBy | fullName }}</span>
@@ -15,9 +20,9 @@
       {{ blog.description }}
     </p>
   </section>
-  <button
-    tuiButton
-    (click)="createPost()"></button>
+  <button *ngIf="canCreate(blog)" tuiButton appearance="secondary" (click)="createPost()">
+    Создать новый пост в блоге
+  </button>
   <h3 class="tui-text_h3">Последние Посты</h3>
   <section class="posts">
     <bp-posts-preview

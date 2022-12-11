@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tuiPure } from '@taiga-ui/cdk';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { BlogDto, BPRoute, BPRouteParam, PostPreviewDto } from '../../../../models';
 import { MainApiService, UserProfileService } from '../../../../services';
@@ -44,6 +45,22 @@ export class BlogDetailsComponent implements OnInit {
         }
       })
     );
+  }
+
+  @tuiPure
+  canEdit(blog: BlogDto): boolean {
+    if (!blog) {
+      return false;
+    }
+    return this.userProfileService.isModeratorAccess() || this.user?.id === blog.createdBy?.id;
+  }
+
+  @tuiPure
+  canCreate(blog: BlogDto): boolean {
+    if (!blog) {
+      return false;
+    }
+    return this.user?.id === blog.createdBy?.id;
   }
 
   trackByPostId(index: number, post: PostPreviewDto): string {

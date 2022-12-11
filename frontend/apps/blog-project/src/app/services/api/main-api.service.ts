@@ -1,7 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_PATH, BlogDto, BlogPreviewDto, CategoryDto, CommentDto, PostDto, PostPreviewDto } from '../../models';
+import {
+  API_PATH,
+  BlogDto,
+  BlogPreviewDto,
+  CategoryDto,
+  CommentDto,
+  PostDto,
+  PostPreviewDto,
+  UserProfileDto,
+} from '../../models';
 
 export type MainParams = {
   from?: string;
@@ -15,11 +24,16 @@ export class MainApiService {
   private categoriesPath = '/categories';
   private commentsPath = '/comments';
   private postsPath = '/posts';
+  private usersPath = '/users';
   private readonly allPath = '/all';
   private readonly previewsPath = '/previews';
   private readonly fullPath = '/full';
 
   constructor(private readonly httpClient: HttpClient) {}
+
+  loadUser(login: string): Observable<UserProfileDto> {
+    return this.httpClient.get<UserProfileDto>(`${API_PATH}${this.usersPath}/${login}`);
+  }
 
   loadBlogs(params?: MainParams): Observable<BlogDto[]> {
     return this.httpClient.get<BlogDto[]>(API_PATH + this.blogsPath + this.allPath, {

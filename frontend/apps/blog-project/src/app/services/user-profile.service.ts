@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserProfileDto } from '../models';
+import { UserProfileDto, UserRole } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +27,17 @@ export class UserProfileService {
       return JSON.parse(profileJson);
     }
     return null;
+  }
+
+  getUserRole(): UserRole | null {
+    return this.getUserProfile()?.userRole || null;
+  }
+
+  isModeratorAccess(): boolean {
+    return this.getUserRole() === 'MODERATOR';
+  }
+
+  isAdminAccess(): boolean {
+    return this.getUserRole() === 'ADMIN';
   }
 }
