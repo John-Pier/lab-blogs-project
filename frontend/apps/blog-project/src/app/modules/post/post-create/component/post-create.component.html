@@ -1,0 +1,12 @@
+<bp-post-form title="Новый пост" [formGroup]="formGroup">
+  <div class="tui-form__button" (click)="invalidateForm()">
+    <button
+      tuiButton
+      appearance="primary"
+      [disabled]="formGroup.invalid"
+      [showLoader]="isLoading"
+      (click)="submitForm()">
+      Войти
+    </button>
+  </div>
+</bp-post-form>

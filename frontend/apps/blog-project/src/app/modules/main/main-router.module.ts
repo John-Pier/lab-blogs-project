@@ -21,14 +21,34 @@ const routes: Route[] = [
       {
         path: BPRoute.Blogs,
         component: ArticlesComponent,
+        children: [
+          {
+            path: BPRoute.BlogCreate,
+          },
+        ],
       },
       {
         path: `${BPRoute.Blogs}/:${BPRouteParam.BlogId}`,
         component: BlogDetailsComponent,
+        children: [
+          {
+            path: BPRoute.BlogEdit,
+          },
+          {
+            path: BPRoute.PostCreate,
+            loadChildren: () => import('../post/post-create').then(m => m.PostCreateModule),
+          },
+        ],
       },
       {
         path: `${BPRoute.Posts}/:${BPRouteParam.PostsId}`,
         component: PostDetailsComponent,
+        children: [
+          {
+            path: BPRoute.PostEdit,
+            loadChildren: () => import('../post/post-edit').then(m => m.PostEditComponent),
+          },
+        ],
       },
       {
         path: '',

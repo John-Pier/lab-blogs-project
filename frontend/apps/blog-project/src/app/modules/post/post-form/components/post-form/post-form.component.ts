@@ -20,7 +20,7 @@ export class PostFormComponent implements OnInit {
   @Input()
   title: string = '';
   @Input()
-  formGroup: FormGroup<any> | undefined;
+  formGroup: FormGroup | undefined;
 
   @Output()
   private readonly onFormChange = new EventEmitter<any>();
@@ -39,8 +39,4 @@ export class PostFormComponent implements OnInit {
       )
       .subscribe();
   }
-
-  // public invalidateForm() {
-  //   console.log('invalidateForm');
-  // }
 }

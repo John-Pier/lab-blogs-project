@@ -5,7 +5,11 @@ export enum BPRoute {
   Content = 'content',
   Profile = 'profile',
   Blogs = 'blogs',
+  BlogCreate = 'create-blog',
+  BlogEdit = 'edit',
   Posts = 'posts',
+  PostEdit = 'edit',
+  PostCreate = 'create-post',
   NotFound = '404',
   Forbidden = '403',
 }
