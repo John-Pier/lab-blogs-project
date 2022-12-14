@@ -76,6 +76,14 @@ export class MainApiService {
     });
   }
 
+  createPost(post: Partial<PostDto>): Observable<PostDto> {
+    return this.httpClient.post<PostDto>(API_PATH + this.postsPath, post);
+  }
+
+  updatePost(post: Partial<PostDto>): Observable<PostDto> {
+    return this.httpClient.put<PostDto>(API_PATH + this.postsPath, post);
+  }
+
   loadComments(postId: string, params?: MainParams): Observable<CommentDto[]> {
     return this.httpClient.get<CommentDto[]>(API_PATH + this.commentsPath, {
       params: { postId: postId, ...params },

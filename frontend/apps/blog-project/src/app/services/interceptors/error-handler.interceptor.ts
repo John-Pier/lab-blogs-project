@@ -23,7 +23,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     );
   }
 
-  private handleResponseStatus({ status }: HttpErrorResponse) {
+  private handleResponseStatus({ status, message }: HttpErrorResponse) {
     if (this.errorStatuses.includes(status)) {
       if (status === this.notAuth) {
         this.alertService
@@ -47,7 +47,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       }
 
       this.alertService
-        .open('Неизвестная ошибка', {
+        .open(message || 'Неизвестная ошибка', {
           label: 'Ошибка',
           status: TuiNotification.Error,
           autoClose: true,

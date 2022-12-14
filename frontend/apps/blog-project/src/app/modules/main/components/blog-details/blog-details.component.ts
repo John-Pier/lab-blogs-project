@@ -67,7 +67,15 @@ export class BlogDetailsComponent implements OnInit {
     return post.id;
   }
 
-  public editBlog() {}
+  public editBlog() {
+    this.router.navigate([BPRoute.BlogEdit], {
+      relativeTo: this.route,
+    });
+  }
 
-  public createPost() {}
+  public createPost() {
+    this.router.navigate([BPRoute.PostCreate], {
+      relativeTo: this.route,
+    });
+  }
 }

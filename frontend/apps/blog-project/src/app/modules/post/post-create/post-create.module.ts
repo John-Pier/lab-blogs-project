@@ -8,6 +8,7 @@ import { PostCreateComponent } from './component';
 const routes: Route[] = [
   {
     path: '',
+    pathMatch: 'full',
     component: PostCreateComponent,
   },
 ];
