@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 
 @Component({
-  selector: 'bp-post-edit',
-  templateUrl: './post-edit.component.html',
-  styleUrls: ['./post-edit.component.less'],
+  selector: 'bp-blog-edit',
+  templateUrl: './blog-edit.component.html',
+  styleUrls: ['./blog-edit.component.less'],
   providers: [TuiDestroyService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostEditComponent implements OnInit {
+export class BlogEditComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}

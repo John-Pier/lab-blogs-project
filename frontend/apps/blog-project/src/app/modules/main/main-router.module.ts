@@ -24,6 +24,7 @@ const routes: Route[] = [
         children: [
           {
             path: BPRoute.BlogCreate,
+            loadChildren: () => import('../blog/blog-create').then(m => m.BlogCreateModule),
           },
         ],
       },
@@ -33,6 +34,7 @@ const routes: Route[] = [
         children: [
           {
             path: BPRoute.BlogEdit,
+            loadChildren: () => import('../blog/blog-edit').then(m => m.BlogEditModule),
           },
           {
             path: BPRoute.PostCreate,

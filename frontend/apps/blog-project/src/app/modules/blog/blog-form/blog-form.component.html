@@ -1,0 +1,22 @@
+<form *ngIf="formGroup" class="tui-form tui-row tui-row_adaptive" [formGroup]="formGroup">
+  <h2 class="tui-text_h2 tui-form__header">{{ title }}</h2>
+  <div class="tui-form__row">
+    <tui-input class="">Название<span class="tui-required"></span></tui-input>
+    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+  <div class="tui-form__row">
+    <tui-input class="">Краткое описание<span class="tui-required"></span></tui-input>
+    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+  <div class="tui-form__row">
+    <tui-input class="">Превью</tui-input>
+    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+  <div class="tui-form__row">
+    <tui-editor formControlName="content" [tools]="builtInTools">Превью<span class="tui-required"></span></tui-editor>
+    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+  </div>
+  <div class="tui-form__buttons">
+    <ng-content></ng-content>
+  </div>
+</form>
