@@ -1,13 +1,13 @@
 package com.johnpier.labproject.auth;
 
-import com.johnpier.labproject.services.UserRepositoryService;
+import com.johnpier.labproject.entities.enums.UserRole;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 import java.util.function.Function;
 
@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.toList;
 
 @Component
 public class JwtTokenUtil implements Serializable {
+    @Serial
     private static final long serialVersionUID = -2550185165626007488L;
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 1000;
 
@@ -44,8 +45,13 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    public List<UserRole> getUserRoleFromToken(String token) {
+        var claims = getAllClaimsFromToken(token);
+        return (List<UserRole>)claims.get("roles");
+    }
+
     private Boolean isTokenExpired(String token) {
-        final Date expiration =  getClaimFromToken(token, Claims::getExpiration);
+        final Date expiration = getClaimFromToken(token, Claims::getExpiration);
         return expiration.before(new Date());
     }
 

@@ -2,6 +2,7 @@ package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
+import com.johnpier.labproject.entities.enums.UserRole;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.services.UserRepositoryService;
 import lombok.*;
@@ -26,7 +27,8 @@ public class UserController {
         log.warn("login: " + login);
         var token = JwtTokenUtil.getBearerToken(auth);
         var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
-        if (!Objects.equals(tokenLogin, login)) {
+        var roles = jwtTokenUtil.getUserRoleFromToken(token);
+        if (!Objects.equals(tokenLogin, login) || roles.contains(UserRole.MODERATOR) || roles.contains(UserRole.ADMIN)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
         return ResponseEntity.ok(userRepositoryService.getUserProfileByLogin(login));
