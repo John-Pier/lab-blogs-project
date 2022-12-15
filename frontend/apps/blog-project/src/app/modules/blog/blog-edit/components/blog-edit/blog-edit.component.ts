@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { TuiAlertService } from '@taiga-ui/core';
+import { CategoryDto } from '../../../../../models';
 import { MainApiService } from '../../../../../services';
 import { BlogFormModel } from '../../../blog-form';
 
@@ -29,7 +30,7 @@ export class BlogEditComponent implements OnInit {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(20)]],
-      categories: [[] as string[], [Validators.required, Validators.minLength(1)]],
+      categories: [[] as CategoryDto[], [Validators.required, Validators.minLength(1)]],
     });
   }
 

@@ -3,7 +3,6 @@ package com.johnpier.labproject.services;
 import com.johnpier.labproject.entities.*;
 import com.johnpier.labproject.mappers.PostMappers;
 import com.johnpier.labproject.models.*;
-import com.johnpier.labproject.models.validators.PostsValidators;
 import com.johnpier.labproject.repositories.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,8 +41,6 @@ public class PostRepositoryService {
     }
 
     public PostDto createPost(PostCreateDto postDto, User user) throws Exception {
-        PostsValidators.validateCreatePostModel(postDto);
-
         Post post = new Post();
         post.setCreatedAt(LocalDate.now());
         post.setUser(user);
@@ -57,7 +54,6 @@ public class PostRepositoryService {
     }
 
     public PostDto editPost(PostCreateDto postDto, String postId) throws Exception {
-        PostsValidators.validateEditPostModel(postDto);
         Post oldPost = this.postRepository.findById(postId).orElseThrow();
         oldPost.setDescription(postDto.getDescription());
         oldPost.setLabel(postDto.getLabel());

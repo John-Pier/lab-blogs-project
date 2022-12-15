@@ -21,7 +21,11 @@ public class BlogMappers {
 
     public static BlogDto mapToBlog(Blog blog) {
         final var blogDto = new BlogDto();
-        var posts = blog.getPosts().stream().map(PostMappers::mapToPreviewDto).toList();
+
+        if (blog.getPosts() != null) {
+            var posts = blog.getPosts().stream().map(PostMappers::mapToPreviewDto).toList();
+            blogDto.setPosts(posts);
+        }
         var categories = blog.getCategories().stream().map(CategoriesMappers::mapToCategoryDto).toList();
 
         blogDto.setId(blog.getId());
@@ -29,7 +33,7 @@ public class BlogMappers {
         blogDto.setDescription(blog.getDescription());
         blogDto.setStatus(blog.getStatus());
         blogDto.setCreatedAt(blog.getCreatedAt());
-        blogDto.setPosts(posts);
+
         blogDto.setCreatedBy(UserMappers.mapUserToShortUserDto(blog.getCreatedBy()));
         blogDto.setCategories(categories);
 

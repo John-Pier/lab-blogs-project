@@ -1,20 +1,27 @@
 package com.johnpier.labproject.services;
 
+import com.johnpier.labproject.entities.*;
 import com.johnpier.labproject.mappers.BlogMappers;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.repositories.BlogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.util.*;
 
 @Slf4j
 @Service
 public class BlogRepositoryService {
     private final BlogRepository blogRepository;
+    private final EntityManager entityManager;
+    private final CategoryRepositoryService categoryRepositoryService;
 
-    public BlogRepositoryService(BlogRepository blogRepository) {
+    public BlogRepositoryService(BlogRepository blogRepository, EntityManager entityManager, CategoryRepositoryService categoryRepositoryService) {
         this.blogRepository = blogRepository;
+        this.entityManager = entityManager;
+        this.categoryRepositoryService = categoryRepositoryService;
     }
 
     public List<BlogPreviewDto> getAllBlogsPreviews() {
@@ -25,6 +32,20 @@ public class BlogRepositoryService {
 
     public BlogDto getBlogById(String blogId) throws NoSuchElementException {
         var blog = this.blogRepository.findById(blogId).orElseThrow();
+        return BlogMappers.mapToBlog(blog);
+    }
+
+    public BlogDto createBlog(BlogCreateDto blogDto, User user) {
+        var blog = new Blog();
+        blog.setCreatedAt(LocalDate.now());
+        blog.setCreatedBy(user);
+        blog.setName(blogDto.getName());
+        blog.setDescription(blogDto.getDescription());
+//        var categories = blogDto.getCategories().stream().map(it -> entityManager.getReference(Category.class, it)).toList();
+        blog.setCategories(this.categoryRepositoryService.findCategories(blogDto.getCategories()));
+
+        this.blogRepository.save(blog);
+
         return BlogMappers.mapToBlog(blog);
     }
 }

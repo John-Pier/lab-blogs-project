@@ -2,9 +2,9 @@ package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
+import com.johnpier.labproject.controllers.validators.PostsDtoValidators;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.models.errors.ErrorModel;
-import com.johnpier.labproject.models.validators.PostsValidators;
 import com.johnpier.labproject.services.*;
 import com.johnpier.labproject.utils.UserRoles;
 import lombok.AllArgsConstructor;
@@ -43,7 +43,7 @@ public class PostController {
     @PostMapping(value = "")
     public ResponseEntity<?> createPost(@RequestBody() PostCreateDto post, @RequestHeader("Authorization") String auth) {
         try {
-            PostsValidators.validateCreatePostModel(post);
+            PostsDtoValidators.validateCreatePostModel(post);
 
             var token = JwtTokenUtil.getBearerToken(auth);
             var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
@@ -67,7 +67,7 @@ public class PostController {
     @PutMapping(value = "/{postId}")
     public ResponseEntity<?> editPost(@RequestBody() PostCreateDto post, @PathVariable String postId, @RequestHeader("Authorization") String auth) {
         try {
-            PostsValidators.validateEditPostModel(post);
+            PostsDtoValidators.validateEditPostModel(post);
 
             var token = JwtTokenUtil.getBearerToken(auth);
             var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TuiDestroyService } from '@taiga-ui/cdk';
 import { TuiAlertService, TuiNotification } from '@taiga-ui/core';
 import { BehaviorSubject, finalize, switchMap } from 'rxjs';
-import { BlogCreateDto, BPRoute } from '../../../../../models';
+import { BlogCreateDto, BPRoute, CategoryDto } from '../../../../../models';
 import { MainApiService } from '../../../../../services';
 import { BlogFormModel } from '../../../blog-form';
 
@@ -34,7 +34,7 @@ export class BlogCreateComponent implements OnInit {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       description: ['', [Validators.required, Validators.minLength(20)]],
-      categories: [[] as string[], [Validators.required, Validators.minLength(1)]],
+      categories: [[] as CategoryDto[], [Validators.required, Validators.minLength(1)]],
     });
   }
 
@@ -49,7 +49,7 @@ export class BlogCreateComponent implements OnInit {
     const model: BlogCreateDto = {
       name: modelValue.name!,
       description: modelValue.description!,
-      categories: modelValue.categories!,
+      categories: modelValue.categories?.map(({ id }) => id)!,
     };
 
     this.isLoading$.next(true);
