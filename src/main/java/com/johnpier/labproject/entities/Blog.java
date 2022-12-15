@@ -3,6 +3,7 @@ package com.johnpier.labproject.entities;
 
 import com.johnpier.labproject.models.EntitiesStatus;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Blog implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "id")
     private String id;
 

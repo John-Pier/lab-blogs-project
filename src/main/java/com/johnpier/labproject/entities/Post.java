@@ -1,6 +1,7 @@
 package com.johnpier.labproject.entities;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,11 +11,14 @@ import java.util.List;
 @Entity
 @lombok.Data
 @Table(name = "posts")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "id")
     private String id;
 
@@ -43,4 +47,8 @@ public class Post implements Serializable {
     @ManyToOne
     @JoinColumn(name = "blog_id")
     private Blog blog;
+
+    public String toString() {
+        return Blog.class.getName() + ": " + this.id;
+    }
 }

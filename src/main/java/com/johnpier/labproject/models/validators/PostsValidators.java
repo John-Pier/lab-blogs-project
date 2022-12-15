@@ -1,9 +1,9 @@
 package com.johnpier.labproject.models.validators;
 
-import com.johnpier.labproject.models.PostDto;
+import com.johnpier.labproject.models.PostCreateDto;
 
 public class PostsValidators {
-    public static void validateCreatePostModel(PostDto postDto) throws Exception {
+    public static void validateCreatePostModel(PostCreateDto postDto) throws Exception {
         var isInvalid = postDto == null || postDto.getBlogId() == null || postDto.getContent() == null || postDto.getDescription() == null || postDto.getLabel() == null;
 
         if (isInvalid) {
