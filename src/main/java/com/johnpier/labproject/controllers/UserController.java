@@ -2,9 +2,9 @@ package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
-import com.johnpier.labproject.entities.enums.UserRole;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.services.UserRepositoryService;
+import com.johnpier.labproject.utils.UserRoles;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -28,7 +28,7 @@ public class UserController {
         var token = JwtTokenUtil.getBearerToken(auth);
         var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
         var roles = jwtTokenUtil.getUserRoleFromToken(token);
-        if (!Objects.equals(tokenLogin, login) || roles.contains(UserRole.MODERATOR) || roles.contains(UserRole.ADMIN)) {
+        if (!Objects.equals(tokenLogin, login) && !UserRoles.isModeratorAccess(roles)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
         return ResponseEntity.ok(userRepositoryService.getUserProfileByLogin(login));

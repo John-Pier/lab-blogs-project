@@ -78,7 +78,11 @@ export class PostEditComponent implements OnInit {
     });
   }
 
-  public invalidateForm() {}
+  invalidateForm() {
+    this.formGroup.markAsDirty();
+    this.formGroup.markAllAsTouched();
+    this.formGroup.updateValueAndValidity();
+  }
 
   public submitForm() {
     const modelValue = this.formGroup.value;

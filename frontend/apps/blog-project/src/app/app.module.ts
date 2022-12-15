@@ -12,10 +12,17 @@ import {
   TuiButtonModule,
   TuiDialogModule,
   TuiErrorModule,
+  TuiLinkModule,
   TuiRootModule,
 } from '@taiga-ui/core';
 import { TUI_LANGUAGE, TUI_RUSSIAN_LANGUAGE } from '@taiga-ui/i18n';
-import { TuiFieldErrorPipeModule, TuiInputDateModule, TuiInputModule, TuiInputPasswordModule } from '@taiga-ui/kit';
+import {
+  TuiFieldErrorPipeModule,
+  TuiInputDateModule,
+  TuiInputModule,
+  TuiInputPasswordModule,
+  TuiMarkerIconModule,
+} from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 import { of } from 'rxjs';
 import { environment } from '../environments/environment';
@@ -57,6 +64,8 @@ registerLocaleData(localeRu, 'ru');
     TuiFieldErrorPipeModule,
     TuiInputPasswordModule,
     TuiInputDateModule,
+    TuiMarkerIconModule,
+    TuiLinkModule,
   ],
   providers: [
     AuthTokenApiService,

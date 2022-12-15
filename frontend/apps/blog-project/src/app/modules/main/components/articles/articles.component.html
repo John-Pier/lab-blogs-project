@@ -1,18 +1,20 @@
-<h2>Новые блоги</h2>
-<section class="blogs">
+<div class="blogs__header">
+  <h2 class="tui-text_h2">Новые блоги</h2>
+  <a tuiButton icon="tuiIconPlusLarge" size="m" [routerLink]="createLink">Создать блог</a>
+</div>
+<section class="blogs tui-text_body-m">
   <tui-island *ngFor="let blog of blogs$ | async" class="blog">
     <p class="tui-island__category">{{ blog.categories | categoriesNames }}</p>
     <h3 class="tui-island__title">{{ blog.name }}</h3>
-    <div>
+    <div class="tui-island__paragraph tui-space_bottom-2">
       <span>{{ blog.createdBy | fullName }}</span>
       <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'shortDate' }}</span>
     </div>
-    <p class="blog__inner tui-island__paragraph">
+    <p class="blog__inner tui-text_body-l">
       {{ blog.description }}
     </p>
-    <p class="tui-island__paragraph tui-island__paragraph_link">
+    <p class="tui-island__paragraph tui-island__paragraph_link tui-text_body-l">
       <a tuiLink [routerLink]="getBlogLink(blog.id)"> Подробнее </a>
     </p>
   </tui-island>
 </section>
-<section></section>

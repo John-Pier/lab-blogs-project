@@ -1,3 +1,4 @@
+import { CategoryDto } from './category.dto';
 import { PostPreviewDto } from './post.dto';
 import { ShortUserDto } from './user.dto';
 
@@ -19,5 +20,11 @@ export interface BlogDto {
   createdAt: string | Date;
   posts: PostPreviewDto[];
   createdBy: ShortUserDto;
-  categories: any[];
+  categories: CategoryDto[];
+}
+
+export interface BlogCreateDto {
+  name: string;
+  description: string;
+  categories: string[];
 }

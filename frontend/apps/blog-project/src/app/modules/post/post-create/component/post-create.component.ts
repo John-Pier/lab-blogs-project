@@ -50,7 +50,9 @@ export class PostCreateComponent implements OnInit {
   }
 
   invalidateForm() {
-    console.log('invalidateForm');
+    this.formGroup.markAsDirty();
+    this.formGroup.markAllAsTouched();
+    this.formGroup.updateValueAndValidity();
   }
 
   submitForm() {

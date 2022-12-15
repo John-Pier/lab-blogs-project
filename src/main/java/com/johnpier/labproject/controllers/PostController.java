@@ -2,11 +2,11 @@ package com.johnpier.labproject.controllers;
 
 import com.johnpier.labproject.auth.JwtTokenUtil;
 import com.johnpier.labproject.configs.Routes;
-import com.johnpier.labproject.entities.enums.UserRole;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.models.errors.ErrorModel;
 import com.johnpier.labproject.models.validators.PostsValidators;
 import com.johnpier.labproject.services.*;
+import com.johnpier.labproject.utils.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -47,13 +47,12 @@ public class PostController {
 
             var token = JwtTokenUtil.getBearerToken(auth);
             var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
-            var roles = jwtTokenUtil.getUserRoleFromToken(token);
-
             var blog = this.blogRepositoryService.getBlogById(post.getBlogId());
             var user = userRepositoryService.getUserByLogin(tokenLogin);
             var userId = user.getUuid();
+            var blogUserId = blog.getCreatedBy().getId();
 
-            if (!Objects.equals(userId, blog.getCreatedBy().getId()) && !roles.contains(UserRole.MODERATOR) && !roles.contains(UserRole.ADMIN)) {
+            if (!Objects.equals(userId, blogUserId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
             }
             post.setUserId(userId);
@@ -77,8 +76,9 @@ public class PostController {
             var blog = this.blogRepositoryService.getBlogById(post.getBlogId());
             var user = userRepositoryService.getUserByLogin(tokenLogin);
             var userId = user.getUuid();
+            var blogUserId = blog.getCreatedBy().getId();
 
-            if (!Objects.equals(userId, blog.getCreatedBy().getId()) && !roles.contains(UserRole.MODERATOR) && !roles.contains(UserRole.ADMIN)) {
+            if (!Objects.equals(userId, blogUserId) && !UserRoles.isModeratorAccess(roles)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
             }
 

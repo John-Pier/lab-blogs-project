@@ -1,20 +1,32 @@
-<form *ngIf="formGroup" class="tui-form tui-row tui-row_adaptive" [formGroup]="formGroup">
+<form *ngIf="formGroup" class="tui-form" [formGroup]="formGroup">
   <h2 class="tui-text_h2 tui-form__header">{{ title }}</h2>
   <div class="tui-form__row">
-    <tui-input class="">Название<span class="tui-required"></span></tui-input>
-    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+    <tui-input formControlName="name">Название<span class="tui-required"></span></tui-input>
+    <tui-error formControlName="name" [error]="[] | tuiFieldError | async"></tui-error>
   </div>
   <div class="tui-form__row">
-    <tui-input class="">Краткое описание<span class="tui-required"></span></tui-input>
-    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+    <tui-input formControlName="description">Описание блога<span class="tui-required"></span></tui-input>
+    <tui-error formControlName="description" [error]="[] | tuiFieldError | async"></tui-error>
   </div>
   <div class="tui-form__row">
-    <tui-input class="">Превью</tui-input>
-    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
-  </div>
-  <div class="tui-form__row">
-    <tui-editor formControlName="content" [tools]="builtInTools">Превью<span class="tui-required"></span></tui-editor>
-    <tui-error formControlName="login" [error]="[] | tuiFieldError | async"></tui-error>
+    <tui-multi-select
+      formControlName="categories"
+      placeholder="Выберите подходящие категории"
+      [stringify]="toCategoryName"
+      [identityMatcher]="categoryMatchById"
+      [tuiTextfieldLabelOutside]="true">
+      Категории
+      <span class="tui-required"></span>
+      <tui-data-list-wrapper *tuiDataList [items]="categories | tuiHideSelected" [itemContent]="itemContentTemplate">
+      </tui-data-list-wrapper>
+      <ng-template #itemContentTemplate let-data>
+        <div class="category-item tui-text_body-m">
+          <div>{{ data.name }}</div>
+          <div class="category-item__description tui-text_body-s">{{ data.description }}</div>
+        </div>
+      </ng-template>
+    </tui-multi-select>
+    <tui-error formControlName="categories" [error]="[] | tuiFieldError | async"></tui-error>
   </div>
   <div class="tui-form__buttons">
     <ng-content></ng-content>

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BPRoute } from '../../models';
 
 @Component({
   selector: 'bp-not-found',
@@ -7,6 +8,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundComponent implements OnInit {
+  readonly contentPath = [BPRoute.Root, BPRoute.Content];
   constructor() {}
 
   ngOnInit() {}

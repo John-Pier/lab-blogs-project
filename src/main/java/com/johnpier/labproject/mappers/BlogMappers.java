@@ -12,7 +12,7 @@ public class BlogMappers {
         blogPreview.setCreatedBy(UserMappers.mapUserToShortUserDto(blog.getCreatedBy()));
         blogPreview.setDescription(blog.getDescription());
         blogPreview.setCreatedAt(blog.getCreatedAt());
-        blogPreview.setPostsCount(blog.getPosts().size()); // TODO: оч тяжело однако
+        blogPreview.setPostsCount(blog.getPosts().size()); // TODO: оч тяжело однако, EntityManager
         var categories = blog.getCategories().stream().map(CategoriesMappers::mapToCategoryDto).toList();
         blogPreview.setCategories(categories);
 

@@ -1,12 +1,14 @@
-<bp-blog-form title="Новый блог" [formGroup]="formGroup">
-  <div class="tui-form__button" (click)="invalidateForm()">
+<bp-blog-form title="Новый блог" [formGroup]="formGroup" [categories]="(categories$ | async) || []">
+  <div (click)="invalidateForm()">
     <button
+      class="tui-form__button"
       tuiButton
       appearance="primary"
       [disabled]="formGroup.invalid"
-      [showLoader]="isLoading"
+      [showLoader]="(isLoading$ | async) || false"
       (click)="submitForm()">
-      Войти
+      Создать
     </button>
+    <button class="tui-form__button" tuiButton appearance="secondary" (click)="cancelClick()">Отмена</button>
   </div>
 </bp-blog-form>

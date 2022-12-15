@@ -23,7 +23,7 @@ const routes: Route[] = [
         component: ArticlesComponent,
       },
       {
-        path: `${BPRoute.BlogCreate}`,
+        path: `${BPRoute.Blogs}/${BPRoute.BlogCreate}`,
         loadChildren: () => import('../blog/blog-create').then(m => m.BlogCreateModule),
       },
       {

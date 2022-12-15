@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   API_PATH,
+  BlogCreateDto,
   BlogDto,
   BlogPreviewDto,
   CategoryDto,
@@ -49,6 +50,14 @@ export class MainApiService {
     return this.httpClient.get<BlogPreviewDto[]>(API_PATH + this.blogsPath + this.previewsPath + this.allPath, {
       params: params,
     });
+  }
+
+  createBlogs(post: BlogCreateDto): Observable<BlogDto> {
+    return this.httpClient.post<BlogDto>(API_PATH + this.blogsPath, post);
+  }
+
+  updateBlogs(post: Partial<BlogDto>, postId: string): Observable<BlogDto> {
+    return this.httpClient.put<BlogDto>(`${API_PATH}${this.blogsPath}/${postId}`, post);
   }
 
   loadCategories(params?: MainParams): Observable<CategoryDto[]> {
