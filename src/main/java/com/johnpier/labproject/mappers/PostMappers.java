@@ -4,7 +4,7 @@ import com.johnpier.labproject.entities.Post;
 import com.johnpier.labproject.models.*;
 
 public class PostMappers {
-    public static PostPreviewDto mapToPreview(Post post) {
+    public static PostPreviewDto mapToPreviewDto(Post post) {
         final var postPreview = new PostPreviewDto();
 
         postPreview.setId(post.getId());
@@ -19,7 +19,7 @@ public class PostMappers {
         return postPreview;
     }
 
-    public static PostDto mapToPost(Post post) {
+    public static PostDto mapToPostDto(Post post) {
         final var postDto = new PostDto();
 
         postDto.setId(post.getId());
@@ -28,6 +28,7 @@ public class PostMappers {
         postDto.setLabel(post.getLabel());
         postDto.setDescription(post.getDescription());
         postDto.setContent(post.getContent());
+        postDto.setPreview(post.getPreview());
         postDto.setCreatedAt(post.getCreatedAt());
 
         return postDto;

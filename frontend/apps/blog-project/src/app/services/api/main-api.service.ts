@@ -80,8 +80,8 @@ export class MainApiService {
     return this.httpClient.post<PostDto>(API_PATH + this.postsPath, post);
   }
 
-  updatePost(post: Partial<PostDto>): Observable<PostDto> {
-    return this.httpClient.put<PostDto>(API_PATH + this.postsPath, post);
+  updatePost(post: Partial<PostDto>, postId: string): Observable<PostDto> {
+    return this.httpClient.put<PostDto>(`${API_PATH}${this.postsPath}/${postId}`, post);
   }
 
   loadComments(postId: string, params?: MainParams): Observable<CommentDto[]> {

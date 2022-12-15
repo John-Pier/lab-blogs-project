@@ -33,7 +33,6 @@ export class PostCreateComponent implements OnInit {
     this.route.paramMap
       .pipe(
         tap(paramMap => {
-          console.log(paramMap);
           this.blogId = paramMap.get(BPRouteParam.BlogId);
         }),
         first()

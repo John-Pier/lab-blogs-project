@@ -44,7 +44,7 @@ const routes: Route[] = [
       },
       {
         path: `${BPRoute.Posts}/:${BPRouteParam.PostsId}/${BPRoute.PostEdit}`,
-        loadChildren: () => import('../post/post-edit').then(m => m.PostEditComponent),
+        loadChildren: () => import('../post/post-edit').then(m => m.PostEditModule),
       },
       {
         path: '',

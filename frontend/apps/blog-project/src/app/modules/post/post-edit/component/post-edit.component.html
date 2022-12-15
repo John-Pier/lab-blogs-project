@@ -1,1 +1,14 @@
-works
+<bp-post-form [title]="'Изменить пост'" [formGroup]="formGroup">
+  <div (click)="invalidateForm()">
+    <button
+      class="tui-form__button"
+      tuiButton
+      appearance="primary"
+      [disabled]="formGroup.invalid"
+      [showLoader]="(isLoading$ | async) || false"
+      (click)="submitForm()">
+      Сохранить
+    </button>
+    <button class="tui-form__button" tuiButton appearance="secondary" (click)="cancelClick()">Отмена</button>
+  </div>
+</bp-post-form>

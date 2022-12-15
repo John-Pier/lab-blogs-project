@@ -21,7 +21,7 @@ public class BlogMappers {
 
     public static BlogDto mapToBlog(Blog blog) {
         final var blogDto = new BlogDto();
-        var posts = blog.getPosts().stream().map(PostMappers::mapToPreview).toList();
+        var posts = blog.getPosts().stream().map(PostMappers::mapToPreviewDto).toList();
         var categories = blog.getCategories().stream().map(CategoriesMappers::mapToCategoryDto).toList();
 
         blogDto.setId(blog.getId());

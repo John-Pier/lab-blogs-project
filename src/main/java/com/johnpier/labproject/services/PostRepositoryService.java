@@ -29,7 +29,7 @@ public class PostRepositoryService {
         }
         final var posts = this.postRepository.findPostsByBlog_Id(blogId);
 
-        return posts.stream().map(PostMappers::mapToPreview).toList();
+        return posts.stream().map(PostMappers::mapToPreviewDto).toList();
     }
 
     public PostDto getPostById(String postId) throws NoSuchElementException {
@@ -38,7 +38,7 @@ public class PostRepositoryService {
         }
         final var post = this.postRepository.findById(postId).orElseThrow();
 
-        return PostMappers.mapToPost(post);
+        return PostMappers.mapToPostDto(post);
     }
 
     public PostDto createPost(PostCreateDto postDto, User user) throws Exception {
@@ -53,7 +53,7 @@ public class PostRepositoryService {
         post.setPreview(postDto.getPreview());
         post.setBlog(entityManager.getReference(Blog.class, postDto.getBlogId()));
 
-        return PostMappers.mapToPost(this.postRepository.save(post));
+        return PostMappers.mapToPostDto(this.postRepository.save(post));
     }
 
     public PostDto editPost(PostCreateDto postDto, String postId) throws Exception {
@@ -64,6 +64,6 @@ public class PostRepositoryService {
         oldPost.setPreview(postDto.getPreview());
         oldPost.setContent(postDto.getContent());
 
-        return PostMappers.mapToPost(this.postRepository.save(oldPost));
+        return PostMappers.mapToPostDto(this.postRepository.save(oldPost));
     }
 }

@@ -1,6 +1,16 @@
 <ng-container *ngIf="post$ | async as post; else loadingTemplate">
   <section class="tui-text_body-m">
-    <h2 class="tui-text_h2">{{ post.label }}</h2>
+    <div>
+      <h2 class="tui-text_h2">{{ post.label }}</h2>
+      <button
+        *ngIf="canEdit(post)"
+        class="tui-space_left-2"
+        size="m"
+        appearance="flat"
+        tuiIconButton
+        icon="tuiIconEditLarge"
+        (click)="editPost()"></button>
+    </div>
     <div *ngIf="post.createdAt" class="tui-text_body-s">Добавлено: {{ post.createdAt | date: 'short' }}</div>
     <div>Краткое описание:</div>
     <p class="post__inner">
@@ -17,7 +27,8 @@
         trackBy: trackByCommentId;
         else: commentsLoadingTemplate;
         empty: emptyTemplate
-      " [comment]="comment">
+      "
+      [comment]="comment">
     </bp-comment>
     <ng-template #emptyTemplate>
       Никто еще не оставил комметрариев :(

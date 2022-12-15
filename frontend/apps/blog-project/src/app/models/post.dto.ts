@@ -4,7 +4,7 @@ export interface PostPreviewDto {
   id: string;
   label: string;
   description: string;
-  preview: string;
+  preview?: string;
   createdAt: string | Date;
   commentsCount: number;
   userId: string;

@@ -15,6 +15,7 @@ public class PostDto implements Serializable {
     private String id;
     private String label;
     private String description;
+    private String preview;
     private LocalDate createdAt;
     private ShortUserDto user;
     private String blogId;

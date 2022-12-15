@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tuiPure } from '@taiga-ui/cdk';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { BPRoute, BPRouteParam, CommentDto, PostDto } from '../../../../models';
-import { MainApiService } from '../../../../services';
+import { MainApiService, UserProfileService } from '../../../../services';
 import { BreadcrumbsService } from '../../services';
 
 @Component({
@@ -18,6 +19,7 @@ export class PostDetailsComponent implements OnInit {
     private readonly mainApiService: MainApiService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private readonly userProfileService: UserProfileService,
     private readonly breadcrumbsService: BreadcrumbsService
   ) {}
 
@@ -62,5 +64,20 @@ export class PostDetailsComponent implements OnInit {
 
   trackByCommentId(index: number, commentDto: CommentDto): string {
     return commentDto.id;
+  }
+
+  @tuiPure
+  public canEdit(post: PostDto) {
+    if (!post) {
+      return false;
+    }
+    const user = this.userProfileService.getUserProfile();
+    return user?.id === post.userId || this.userProfileService.isModeratorAccess();
+  }
+
+  public editPost() {
+    this.router.navigate([BPRoute.PostEdit], {
+      relativeTo: this.route,
+    });
   }
 }

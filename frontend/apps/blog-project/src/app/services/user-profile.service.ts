@@ -34,10 +34,14 @@ export class UserProfileService {
   }
 
   isModeratorAccess(): boolean {
-    return this.getUserRole() === 'MODERATOR';
+    return this.getUserRole() === 'MODERATOR' || this.isAdminAccess();
   }
 
   isAdminAccess(): boolean {
     return this.getUserRole() === 'ADMIN';
+  }
+
+  isAdminOrModerator(): boolean {
+    return this.isModeratorAccess() || this.isAdminAccess();
   }
 }
