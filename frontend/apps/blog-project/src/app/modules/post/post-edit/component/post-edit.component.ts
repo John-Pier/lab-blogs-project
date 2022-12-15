@@ -97,7 +97,6 @@ export class PostEditComponent implements OnInit {
       .updatePost(model, this.post?.id!)
       .pipe(
         switchMap(post => {
-          console.log(post);
           this.alertService
             .open('', {
               label: 'Изменения сохранены!',
@@ -108,16 +107,6 @@ export class PostEditComponent implements OnInit {
 
           return this.navigateOnPost(post.id);
         }),
-        // catchError(error => {
-        //   this.alertService
-        //     .open(error.message || 'Неизвестная ошибка', {
-        //       label: 'Ошибка создания!',
-        //       autoClose: true,
-        //       status: TuiNotification.Error,
-        //     })
-        //     .subscribe();
-        //   return throwError(() => error);
-        // }),
         finalize(() => {
           this.isLoading$.next(false);
         })
@@ -126,7 +115,7 @@ export class PostEditComponent implements OnInit {
   }
 
   private navigateOnPost(postId: string): Promise<unknown> {
-    return this.router.navigate([BPRoute.Root, BPRoute.Posts, postId]);
+    return this.router.navigate([BPRoute.Root, BPRoute.Content, BPRoute.Posts, postId]);
   }
 
   cancelClick() {

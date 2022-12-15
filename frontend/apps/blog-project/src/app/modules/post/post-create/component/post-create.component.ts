@@ -97,7 +97,7 @@ export class PostCreateComponent implements OnInit {
   }
 
   private navigateOnPost(postId: string): Promise<unknown> {
-    return this.router.navigate([BPRoute.Root, BPRoute.Posts, postId]);
+    return this.router.navigate([BPRoute.Root, BPRoute.Content, BPRoute.Posts, postId]);
   }
 
   cancelClick() {
