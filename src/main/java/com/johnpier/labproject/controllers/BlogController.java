@@ -6,12 +6,13 @@ import com.johnpier.labproject.controllers.validators.BlogDtoValidators;
 import com.johnpier.labproject.models.*;
 import com.johnpier.labproject.models.errors.ErrorModel;
 import com.johnpier.labproject.services.*;
+import com.johnpier.labproject.utils.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @Slf4j
@@ -38,7 +39,7 @@ public class BlogController {
     @GetMapping(value = "full/{blogId}")
     public ResponseEntity<?> getBlogById(@PathVariable String blogId) {
         try {
-            return ResponseEntity.ok(this.blogRepositoryService.getBlogById(blogId));
+            return ResponseEntity.ok(this.blogRepositoryService.getBlogDtoById(blogId));
         }catch (Exception ex) {
             return ResponseEntity.notFound().build();
         }
@@ -60,28 +61,32 @@ public class BlogController {
         }
     }
 
-//    @PutMapping(value = "/{postId}")
-//    public ResponseEntity<?> editBlog(@RequestBody() PostCreateDto post, @PathVariable String postId, @RequestHeader("Authorization") String auth) {
-//        try {
-//            BlogDtoValidators.validateEditPostModel(post);
-//
-//            var token = JwtTokenUtil.getBearerToken(auth);
-//            var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
-//            var roles = jwtTokenUtil.getUserRoleFromToken(token);
-//
-//            var blog = this.blogRepositoryService.getBlogById(post.getBlogId());
-//            var user = userRepositoryService.getUserByLogin(tokenLogin);
-//            var userId = user.getUuid();
-//            var blogUserId = blog.getCreatedBy().getId();
-//
-//            if (!Objects.equals(userId, blogUserId) && !UserRoles.isModeratorAccess(roles)) {
-//                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-//            }
-//
-//            return ResponseEntity.ok(this.blogRepositoryService.editPost(post, postId));
-//        }catch (Exception ex) {
-//            ex.printStackTrace();
-//            return ResponseEntity.badRequest().body(new ErrorModel(ex.getMessage()));
-//        }
-//    }
+    @PutMapping(value = "/{blogId}")
+    public ResponseEntity<?> editBlog(@RequestBody() BlogCreateDto blogDto, @PathVariable String blogId, @RequestHeader("Authorization") String auth) {
+        try {
+            BlogDtoValidators.validateCreateBlogModel(blogDto);
+
+            var token = JwtTokenUtil.getBearerToken(auth);
+            var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
+            var roles = jwtTokenUtil.getUserRoleFromToken(token);
+
+            var blog = this.blogRepositoryService.getBlogById(blogId);
+            if (blog == null) {
+                throw new Exception("Такого блога не существует");
+            }
+
+            var user = userRepositoryService.getUserByLogin(tokenLogin);
+            var userId = user.getUuid();
+            var blogUserId = blog.getCreatedBy().getUuid();
+
+            if (!Objects.equals(userId, blogUserId) && !UserRoles.isModeratorAccess(roles)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            }
+
+            return ResponseEntity.ok(this.blogRepositoryService.editBlog(blogDto, blog));
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().body(new ErrorModel(ex.getMessage()));
+        }
+    }
 }

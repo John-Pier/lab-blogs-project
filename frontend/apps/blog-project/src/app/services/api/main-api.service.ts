@@ -52,12 +52,12 @@ export class MainApiService {
     });
   }
 
-  createBlogs(post: BlogCreateDto): Observable<BlogDto> {
-    return this.httpClient.post<BlogDto>(API_PATH + this.blogsPath, post);
+  createBlog(blog: BlogCreateDto): Observable<BlogDto> {
+    return this.httpClient.post<BlogDto>(API_PATH + this.blogsPath, blog);
   }
 
-  updateBlogs(post: Partial<BlogDto>, postId: string): Observable<BlogDto> {
-    return this.httpClient.put<BlogDto>(`${API_PATH}${this.blogsPath}/${postId}`, post);
+  updateBlog(blog: BlogCreateDto, postId: string): Observable<BlogDto> {
+    return this.httpClient.put<BlogDto>(`${API_PATH}${this.blogsPath}/${postId}`, blog);
   }
 
   loadCategories(params?: MainParams): Observable<CategoryDto[]> {

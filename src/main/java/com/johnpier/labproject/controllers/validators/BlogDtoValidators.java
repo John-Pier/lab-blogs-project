@@ -22,18 +22,4 @@ public class BlogDtoValidators {
             throw new Exception("Добавьте категории!");
         }
     }
-
-    public static void validateEditPostModel(BlogCreateDto blogCreateDto) throws Exception {
-        var isInvalid = blogCreateDto == null || blogCreateDto.getName() == null || blogCreateDto.getCategories() == null || blogCreateDto.getDescription() == null;
-
-        if (isInvalid) {
-            throw new Exception("Нет необходимых полей!");
-        }
-//        if (postDto.getContent().length() < 200) {
-//            throw new Exception("Слишком короткий пост!");
-//        }
-//        if (postDto.getDescription().length() > 200) {
-//            throw new Exception("Слишком длинное описание!");
-//        }
-    }
 }

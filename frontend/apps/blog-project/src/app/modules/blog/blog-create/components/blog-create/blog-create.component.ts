@@ -54,7 +54,7 @@ export class BlogCreateComponent implements OnInit {
 
     this.isLoading$.next(true);
     this.mainApiService
-      .createBlogs(model)
+      .createBlog(model)
       .pipe(
         switchMap(blog => {
           this.alertService

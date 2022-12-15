@@ -30,9 +30,13 @@ public class BlogRepositoryService {
         return blogs.stream().map(BlogMappers::mapToPreview).toList();
     }
 
-    public BlogDto getBlogById(String blogId) throws NoSuchElementException {
+    public BlogDto getBlogDtoById(String blogId) throws NoSuchElementException {
         var blog = this.blogRepository.findById(blogId).orElseThrow();
         return BlogMappers.mapToBlog(blog);
+    }
+
+    public Blog getBlogById(String blogId) throws NoSuchElementException {
+        return this.blogRepository.findById(blogId).orElse(null);
     }
 
     public BlogDto createBlog(BlogCreateDto blogDto, User user) {
@@ -44,8 +48,14 @@ public class BlogRepositoryService {
 //        var categories = blogDto.getCategories().stream().map(it -> entityManager.getReference(Category.class, it)).toList();
         blog.setCategories(this.categoryRepositoryService.findCategories(blogDto.getCategories()));
 
-        this.blogRepository.save(blog);
+        return BlogMappers.mapToBlog(this.blogRepository.save(blog));
+    }
 
-        return BlogMappers.mapToBlog(blog);
+    public BlogDto editBlog(BlogCreateDto blogDto, Blog blog) {
+        blog.setName(blogDto.getName());
+        blog.setDescription(blogDto.getDescription());
+        blog.setCategories(this.categoryRepositoryService.findCategories(blogDto.getCategories()));
+
+        return BlogMappers.mapToBlog(this.blogRepository.save(blog));
     }
 }

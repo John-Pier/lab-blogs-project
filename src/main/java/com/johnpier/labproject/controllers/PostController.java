@@ -47,7 +47,7 @@ public class PostController {
 
             var token = JwtTokenUtil.getBearerToken(auth);
             var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
-            var blog = this.blogRepositoryService.getBlogById(post.getBlogId());
+            var blog = this.blogRepositoryService.getBlogDtoById(post.getBlogId());
             var user = userRepositoryService.getUserByLogin(tokenLogin);
             var userId = user.getUuid();
             var blogUserId = blog.getCreatedBy().getId();
@@ -73,7 +73,7 @@ public class PostController {
             var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
             var roles = jwtTokenUtil.getUserRoleFromToken(token);
 
-            var blog = this.blogRepositoryService.getBlogById(post.getBlogId());
+            var blog = this.blogRepositoryService.getBlogDtoById(post.getBlogId());
             var user = userRepositoryService.getUserByLogin(tokenLogin);
             var userId = user.getUuid();
             var blogUserId = blog.getCreatedBy().getId();
