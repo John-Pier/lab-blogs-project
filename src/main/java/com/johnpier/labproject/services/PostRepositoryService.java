@@ -45,7 +45,6 @@ public class PostRepositoryService {
         PostsValidators.validateCreatePostModel(postDto);
 
         Post post = new Post();
-//        post.setId(UUID.randomUUID().toString());
         post.setCreatedAt(LocalDate.now());
         post.setUser(user);
         post.setContent(postDto.getContent());
@@ -55,5 +54,16 @@ public class PostRepositoryService {
         post.setBlog(entityManager.getReference(Blog.class, postDto.getBlogId()));
 
         return PostMappers.mapToPost(this.postRepository.save(post));
+    }
+
+    public PostDto editPost(PostCreateDto postDto, String postId) throws Exception {
+        PostsValidators.validateEditPostModel(postDto);
+        Post oldPost = this.postRepository.findById(postId).orElseThrow();
+        oldPost.setDescription(postDto.getDescription());
+        oldPost.setLabel(postDto.getLabel());
+        oldPost.setPreview(postDto.getPreview());
+        oldPost.setContent(postDto.getContent());
+
+        return PostMappers.mapToPost(this.postRepository.save(oldPost));
     }
 }

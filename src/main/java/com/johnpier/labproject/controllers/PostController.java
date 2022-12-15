@@ -64,4 +64,28 @@ public class PostController {
             return ResponseEntity.badRequest().body(new ErrorModel(ex.getMessage()));
         }
     }
+
+    @PutMapping(value = "/{postId}")
+    public ResponseEntity<?> editPost(@RequestBody() PostCreateDto post, @PathVariable String postId, @RequestHeader("Authorization") String auth) {
+        try {
+            PostsValidators.validateEditPostModel(post);
+
+            var token = JwtTokenUtil.getBearerToken(auth);
+            var tokenLogin = jwtTokenUtil.getUsernameFromToken(token);
+            var roles = jwtTokenUtil.getUserRoleFromToken(token);
+
+            var blog = this.blogRepositoryService.getBlogById(post.getBlogId());
+            var user = userRepositoryService.getUserByLogin(tokenLogin);
+            var userId = user.getUuid();
+
+            if (!Objects.equals(userId, blog.getCreatedBy().getId()) && !roles.contains(UserRole.MODERATOR) && !roles.contains(UserRole.ADMIN)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            }
+
+            return ResponseEntity.ok(this.postRepositoryService.editPost(post, postId));
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().body(new ErrorModel(ex.getMessage()));
+        }
+    }
 }
