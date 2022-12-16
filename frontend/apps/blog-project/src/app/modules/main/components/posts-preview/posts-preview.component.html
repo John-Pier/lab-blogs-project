@@ -1,17 +1,17 @@
 <tui-island *ngIf="post" class="post tui-text_body-m">
-  <h3 class="tui-island__title">{{ post.label }}</h3>
-  <div *ngIf="post.createdAt">Добавлено: {{ post.createdAt | date: 'shortDate' }}</div>
-  <p class="post__inner tui-island__paragraph">
+  <h4 class="tui-text_h4 tui-space_top-0 tui-space_bottom-2">{{ post.label }}</h4>
+  <div *ngIf="post.createdAt" class="tui-island__paragraph">Добавлено: {{ post.createdAt | date: 'shortDate' }}</div>
+  <p class="post__inner">
     {{ post.description }}
   </p>
   <button *ngIf="!showPreview" tuiButton appearance="outline" size="m" (click)="showPreview = true">
     Развернуть превью
   </button>
   <tui-expand [expanded]="showPreview">
-    <div class="post__preview-header">Превью</div>
-    <p class="tui-island__paragraph">
+    <h5 class="post__preview-header tui-text_h5 tui-space_top-2 tui-space_bottom-2">Превью</h5>
+    <div class="tui-space_top-2">
       {{ post.preview }}
-    </p>
+    </div>
   </tui-expand>
   <div *ngIf="post.commentsCount">Коментариев: {{ post.commentsCount }}</div>
   <p class="tui-island__paragraph tui-island__paragraph_link">

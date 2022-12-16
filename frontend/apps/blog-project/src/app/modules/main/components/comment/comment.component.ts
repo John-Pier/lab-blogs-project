@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { CommentDto } from '../../../../models';
-import { BreadcrumbsService } from '../../services';
 
 @Component({
   selector: 'bp-comment',
@@ -9,15 +7,13 @@ import { BreadcrumbsService } from '../../services';
   styleUrls: ['./comment.component.less'],
 })
 export class CommentComponent implements OnInit {
-
   @Input()
   comment: CommentDto | undefined;
 
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly breadcrumbsService: BreadcrumbsService
-  ) {}
+  @HostBinding('class.comments')
+  private class = true;
+
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -1,7 +1,11 @@
 <ng-container *ngIf="blog$ | async as blog; else loadingTemplate">
-  <section class="tui-text_body-m">
+  <section class="tui-text_body-m tui-space_top-4">
+    <div class="blog__info">
+      <span>{{ blog.createdBy | fullName }}</span>
+      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'shortDate' }}</span>
+    </div>
     <div class="blog__header">
-      <h2 class="tui-text_h2 tui-space_top-4 tui-space_bottom-4">{{ blog.name }}</h2>
+      <h2 class="tui-text_h2 tui-space_top-2 tui-space_bottom-2">{{ blog.name }}</h2>
       <button
         *ngIf="canEdit(blog)"
         class="tui-space_left-2"
@@ -11,19 +15,34 @@
         icon="tuiIconEditLarge"
         (click)="editBlog()"></button>
     </div>
-    <p class="blog__categories">{{ blog.categories | categoriesNames }}</p>
-    <div class="blog__info">
-      <span>{{ blog.createdBy | fullName }}</span>
-      <span *ngIf="blog.createdAt">&nbsp;| {{ blog.createdAt | date: 'shortDate' }}</span>
+    <div class="blog__inner">
+      <div class="blog__categories tui-space_bottom-4 tui-text_body-m">
+        <tui-tag
+          *ngFor="let category of blog.categories"
+          class="tui-space_left-1"
+          size="m"
+          [value]="category.name"></tui-tag>
+      </div>
+
+      <div class="blog__description">
+        {{ blog.description }}
+      </div>
     </div>
-    <p class="blog__inner">
-      {{ blog.description }}
-    </p>
   </section>
-  <button *ngIf="canCreate(blog)" tuiButton appearance="secondary" (click)="createPost()">
-    Создать новый пост в блоге
-  </button>
-  <h3 class="tui-text_h3">Последние Посты</h3>
+
+  <div class="posts__header tui-space_bottom-4 tui-space_top-8">
+    <h3 class="tui-text_h3 tui-space_bottom-0 tui-space_top-0">Последние Посты</h3>
+    <button
+      *ngIf="canCreate(blog)"
+      class="tui-space_right-2"
+      size="m"
+      tuiButton
+      appearance="secondary"
+      (click)="createPost()">
+      Добавить пост
+    </button>
+  </div>
+
   <section class="posts">
     <bp-posts-preview
       *ngFor="let post of blog.posts; trackBy: trackByPostId; else: postsLoadingTemplate; empty: emptyTemplate"

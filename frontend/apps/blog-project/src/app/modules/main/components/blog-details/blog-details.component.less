@@ -1,3 +1,5 @@
+@import '@taiga-ui/styles/taiga-ui-global';
+
 :host {
   display: block;
 
@@ -10,11 +12,31 @@
       display: flex;
       align-items: center;
     }
+
+    &__inner {
+      .shadow();
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+      padding: 1rem;
+    }
+
+    &__categories {
+      color: var(--tui-text-03);
+    }
+    &__info {
+      color: var(--tui-base-06);
+    }
   }
 
   .posts {
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
+
+    &__header {
+      display: flex;
+      justify-items: center;
+      justify-content: space-between;
+    }
   }
 }

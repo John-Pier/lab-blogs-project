@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { TuiEditorSocketModule } from '@taiga-ui/addon-editor';
 import { TuiForModule } from '@taiga-ui/cdk';
 import { TuiButtonModule, TuiExpandModule, TuiLinkModule, TuiLoaderModule } from '@taiga-ui/core';
-import { TuiBreadcrumbsModule, TuiIslandModule } from '@taiga-ui/kit';
+import { TuiBreadcrumbsModule, TuiIslandModule, TuiTagModule } from '@taiga-ui/kit';
 import { CategoriesNamesPipe, FullNamePipe } from '../../pipes';
 import { HeaderModule } from '../header';
 import { ArticlesComponent, BlogDetailsComponent, MainComponent, PostsPreviewComponent } from './components';
@@ -34,6 +34,7 @@ import { MainRouterModule } from './main-router.module';
     TuiEditorSocketModule,
     TuiForModule,
     CategoriesNamesPipe,
+    TuiTagModule,
   ],
 })
 export class MainModule {}

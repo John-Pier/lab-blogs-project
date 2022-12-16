@@ -1,7 +1,10 @@
 <ng-container *ngIf="post$ | async as post; else loadingTemplate">
-  <section class="tui-text_body-m">
-    <div>
-      <h2 class="tui-text_h2">{{ post.label }}</h2>
+  <section class="tui-text_body-m tui-space_top-4">
+    <div *ngIf="post.createdAt" class="post__created tui-text_body-s">
+      Добавлено: {{ post.createdAt | date: 'short' }}
+    </div>
+    <div class="post__header tui-space_top-2 tui-space_bottom-3">
+      <h2 class="tui-text_h2 tui-space_top-0 tui-space_bottom-0">{{ post.label }}</h2>
       <button
         *ngIf="canEdit(post)"
         class="tui-space_left-2"
@@ -11,16 +14,14 @@
         icon="tuiIconEditLarge"
         (click)="editPost()"></button>
     </div>
-    <div *ngIf="post.createdAt" class="tui-text_body-s">Добавлено: {{ post.createdAt | date: 'short' }}</div>
-    <div>Краткое описание:</div>
-    <p class="post__inner">
+    <div class="post__inner tui-space_bottom-4">
       {{ post.description }}
-    </p>
-    <hr />
+    </div>
+    <hr class="tui-space_bottom-4" />
     <tui-editor-socket [content]="post.content"></tui-editor-socket>
   </section>
   <section class="comments">
-    <h3 class="tui-text_h3">Комментарии</h3>
+    <h4 class="tui-text_h4 tui-space_top-4 tui-space_bottom-4">Комментарии</h4>
     <bp-comment
       *ngFor="
         let comment of comments$ | async;
@@ -28,6 +29,7 @@
         else: commentsLoadingTemplate;
         empty: emptyTemplate
       "
+      class="tui-space_bottom-4"
       [comment]="comment">
     </bp-comment>
     <ng-template #emptyTemplate>
