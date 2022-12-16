@@ -72,7 +72,7 @@ export class PostDetailsComponent implements OnInit {
       return false;
     }
     const user = this.userProfileService.getUserProfile();
-    return user?.id === post.userId || this.userProfileService.isModeratorAccess();
+    return user?.id === post.user.id || this.userProfileService.isModeratorAccess();
   }
 
   public editPost() {
